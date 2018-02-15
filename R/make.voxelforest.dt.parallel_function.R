@@ -27,7 +27,7 @@
 #' the output the columns "X" and "Y" specify the voxel coordinates. Thus, the columns
 #' containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 #' will appear in the output under their original input name.
-#' @param parallel boolean to specify whether to use parallelization or not
+#' @param run.parallel boolean to specify whether to use parallelization or not
 #' @param frac.cores fraction of available cores to use for parallelization
 #' @param res resolution (side length) of the parallelized subunits
 #' @return data.table object containing a XYZ-table of tree crown voxels, ground voxels and maybe tree stem voxels
@@ -39,7 +39,7 @@
 make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                          vxl.per.sqm=4, stems=F, ground=T,
                                          aggregation.func="max", keep=NA,
-                                         parallel=F, frac.cores=0.5, res=100){
+                                         run.parallel=F, frac.cores=0.5, res=100){
   # Package requirements
   require(data.table)
   require(parallel)
@@ -52,7 +52,8 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
     # Define make.voxelforest.dt function
     make.voxelforest.dt2 <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
                                      stems=F, ground=T, aggregation.func="max", keep=NA){
-      require(sidaRtools)
+      require(data.table)
+      require(slidaRtools)
 
       # Convert treelist to data.table
       trees.dt <- data.table(trees.dt)
@@ -189,7 +190,7 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
     # Split the data based on spatial index numbers
     trees.list <- split(trees.dt, f=trees.dt$Parallelization_SpatID)
     # Standard lapply solution without parallelization
-    if(parallel == F){
+    if(run.parallel == F){
       # Make a voxelforest from each list element with lapply without ground
       vxf.list <- lapply(X=trees.list, FUN=make.voxelforest.dt2,
                          vxl.per.sqm=vxl.per.sqm, stems=stems, ground=F,

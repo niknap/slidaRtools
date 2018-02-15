@@ -6,7 +6,7 @@
 \usage{
 make.voxelforest.dt.parallel(trees.dt, minx = 0, maxx, miny = 0, maxy,
   vxl.per.sqm = 4, stems = F, ground = T, aggregation.func = "max",
-  keep = NA, parallel = F, frac.cores = 0.5, res = 100)
+  keep = NA, run.parallel = F, frac.cores = 0.5, res = 100)
 }
 \arguments{
 \item{trees.dt}{A data.table (or data.frame) that contains all trees that form the voxelforest provided
@@ -45,7 +45,7 @@ the output the columns "X" and "Y" specify the voxel coordinates. Thus, the colu
 containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 will appear in the output under their original input name.}
 
-\item{parallel}{boolean to specify whether to use parallelization or not}
+\item{run.parallel}{boolean to specify whether to use parallelization or not}
 
 \item{frac.cores}{fraction of available cores to use for parallelization}
 
