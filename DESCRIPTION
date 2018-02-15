@@ -14,7 +14,8 @@ Description: This package provides a couple of useful functions to simulate and
     inventory-based and lidar-based metrics for forest stands.
 License: GPL-3
 LazyData: TRUE
-Imports:
+Depends:
+    R (>= 3.1.0),
     abind,
     data.table,
     grDevices,
@@ -29,6 +30,4 @@ Imports:
     rgl,
     sp,
     VGAM
-Depends:
-    R (>= 3.1.0)
 RoxygenNote: 5.0.1
