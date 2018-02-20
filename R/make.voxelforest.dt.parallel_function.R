@@ -206,7 +206,7 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
       # Initiate cluster
       mycl <- makeCluster(N.cores*frac.cores)
       # Prepare the environment on each child worker
-      clusterExport(cl=mycl, varlist=c("lib.path"))
+      clusterExport(cl=mycl, varlist=c("lib.path"), envir=environment())
       clusterEvalQ(cl=mycl, .libPaths(new=lib.path))
       clusterEvalQ(cl=mycl, require(data.table, lib.loc=lib.path))
       clusterEvalQ(cl=mycl, require(slidaRtools, lib.loc=lib.path))
