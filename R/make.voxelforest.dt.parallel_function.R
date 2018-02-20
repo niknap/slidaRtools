@@ -27,6 +27,7 @@
 #' the output the columns "X" and "Y" specify the voxel coordinates. Thus, the columns
 #' containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 #' will appear in the output under their original input name.
+#' @param lib.path string specifying the path from where to load the R packages. Should be set to .libPaths()[1].
 #' @param run.parallel boolean to specify whether to use parallelization or not
 #' @param frac.cores fraction of available cores to use for parallelization
 #' @param res resolution (side length) of the parallelized subunits
@@ -38,12 +39,12 @@
 
 make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                          vxl.per.sqm=4, stems=F, ground=T,
-                                         aggregation.func="max", keep=NA,
+                                         aggregation.func="max", keep=NA, lib.path=NA,
                                          run.parallel=F, frac.cores=0.5, res=100){
   # Package requirements
-  mylibPath <- .libPaths()[1]
-  require(data.table, lib.loc=mylibPath)
-  require(parallel, lib.loc=mylibPath)
+  # lib.path <- .libPaths()[1]
+  require(data.table, lib.loc=lib.path)
+  require(parallel, lib.loc=lib.path)
 
   # Convert treelist to data.table
   trees.dt <- data.table(trees.dt)
@@ -55,8 +56,8 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                      stems=F, ground=T, aggregation.func="max", keep=NA){
 
       # Package requirements
-      require(data.table, lib.loc=mylibPath)
-      require(slidaRtools, lib.loc=mylibPath)
+      require(data.table, lib.loc=lib.path)
+      require(slidaRtools, lib.loc=lib.path)
 
       # Convert treelist to data.table
       trees.dt <- data.table(trees.dt)
@@ -205,10 +206,10 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
       # Initiate cluster
       mycl <- makeCluster(N.cores*frac.cores)
       # Prepare the environment on each child worker
-      clusterExport(cl=mycl, varlist=c("mylibPath"))
-      clusterEvalQ(cl=mycl, .libPaths(new=mylibPath))
-      clusterEvalQ(cl=mycl, library(data.table, lib.loc=mylibPath))
-      clusterEvalQ(cl=mycl, library(slidaRtools, lib.loc=mylibPath))
+      clusterExport(cl=mycl, varlist=c("lib.path"))
+      clusterEvalQ(cl=mycl, .libPaths(new=lib.path))
+      clusterEvalQ(cl=mycl, require(data.table, lib.loc=lib.path))
+      clusterEvalQ(cl=mycl, require(slidaRtools, lib.loc=lib.path))
       # Make a voxelforest from each list element with parLapply without ground.
       # parLapply requires that inside the make.voxelforest.dt function it is checked
       # that trees.dt is really a data.table with is.data.table(), otherwise it will

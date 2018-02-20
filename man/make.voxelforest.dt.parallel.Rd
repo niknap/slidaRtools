@@ -6,7 +6,8 @@
 \usage{
 make.voxelforest.dt.parallel(trees.dt, minx = 0, maxx, miny = 0, maxy,
   vxl.per.sqm = 4, stems = F, ground = T, aggregation.func = "max",
-  keep = NA, run.parallel = F, frac.cores = 0.5, res = 100)
+  keep = NA, lib.path = NA, run.parallel = F, frac.cores = 0.5,
+  res = 100)
 }
 \arguments{
 \item{trees.dt}{A data.table (or data.frame) that contains all trees that form the voxelforest provided
@@ -44,6 +45,8 @@ ID of each tree should be available for each voxel. X and Y are special cases, b
 the output the columns "X" and "Y" specify the voxel coordinates. Thus, the columns
 containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 will appear in the output under their original input name.}
+
+\item{lib.path}{string specifying the path from where to load the R packages. Should be set to .libPaths()[1].}
 
 \item{run.parallel}{boolean to specify whether to use parallelization or not}
 
