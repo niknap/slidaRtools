@@ -41,8 +41,9 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                          aggregation.func="max", keep=NA,
                                          run.parallel=F, frac.cores=0.5, res=100){
   # Package requirements
-  require(data.table)
-  require(parallel)
+  mylibPath <- .libPaths()[1]
+  require(data.table, lib.loc=mylibPath)
+  require(parallel, lib.loc=mylibPath)
 
   # Convert treelist to data.table
   trees.dt <- data.table(trees.dt)
@@ -52,8 +53,10 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
     # Define make.voxelforest.dt function
     make.voxelforest.dt2 <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
                                      stems=F, ground=T, aggregation.func="max", keep=NA){
-      require(data.table)
-      require(slidaRtools)
+
+      # Package requirements
+      require(data.table, lib.loc=mylibPath)
+      require(slidaRtools, lib.loc=mylibPath)
 
       # Convert treelist to data.table
       trees.dt <- data.table(trees.dt)
@@ -201,6 +204,11 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
       N.cores <- detectCores()
       # Initiate cluster
       mycl <- makeCluster(N.cores*frac.cores)
+      # Prepare the environment on each child worker
+      clusterExport(cl=mycl, varlist=c("mylibPath"))
+      clusterEvalQ(cl=mycl, .libPaths(new=mylibPath))
+      clusterEvalQ(cl=mycl, library(data.table, lib.loc=mylibPath))
+      clusterEvalQ(cl=mycl, library(slidaRtools, lib.loc=mylibPath))
       # Make a voxelforest from each list element with parLapply without ground.
       # parLapply requires that inside the make.voxelforest.dt function it is checked
       # that trees.dt is really a data.table with is.data.table(), otherwise it will
