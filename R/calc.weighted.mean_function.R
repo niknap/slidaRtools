@@ -11,6 +11,12 @@
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 calc.weighted.mean <- function(val, wt){
+  # Remove NAs
+  val.na <- is.na(val)
+  wt.na <- is.na(wt)
+  vec.na <- val.na | wt.na
+  val <- val[!vec.na]
+  wt <- wt[!vec.na]
   return(sum(wt*val)/sum(wt))
 }
 

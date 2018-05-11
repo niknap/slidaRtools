@@ -10,9 +10,9 @@
 #' @examples in progress
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
-
 make.profile.from.XYZ <- function(XYZ.table, binwidth=1){
   require(plyr)
+  require(data.table)
   XYZ.table <- data.frame(XYZ.table)
   names(XYZ.table) <- c("X", "Y", "Z")
   max.Z <- max(XYZ.table$Z, na.rm=T)

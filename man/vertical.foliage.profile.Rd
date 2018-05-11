@@ -32,6 +32,9 @@ vfp.vec <- vertical.foliage.profile(profile=prof.vec, h.bin=1, GR.threshold=1, k
 plot(names(prof.vec) ~ prof.vec, type="l", xlab="Lidar returns", ylab="Height [m]")
 plot(names(vfp.vec) ~ vfp.vec, type="l", xlab="LAD [m2/m3]", ylab="Height [m]")
 }
+\author{
+Nikolai Knapp, nikolai.knapp@ufz.de
+}
 \keyword{Horn}
 \keyword{LAD}
 \keyword{LAI}

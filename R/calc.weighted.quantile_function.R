@@ -12,6 +12,12 @@
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 calc.weighted.quantile <- function(val, wt, quant){
+  # Remove NAs
+  val.na <- is.na(val)
+  wt.na <- is.na(wt)
+  vec.na <- val.na | wt.na
+  val <- val[!vec.na]
+  wt <- wt[!vec.na]
   # Calculate the proportion of the weights-vector-sum that
   # corresponds to the desired quantile
   target.wt <- quant*sum(wt)
