@@ -1,28 +1,36 @@
 #' Scan a voxel forest with a virtual large footprint Lidar
 #'
-#' Function that simulates a Lidar waveform of a given voxel forest and returns a profile vector.
+#' Function that simulates a Lidar waveform of a) a given voxel forest or b) a given lidar point
+#' cloud or CHM and returns a profile vector.
 #' The horizontal energy distribution inside the pulse is simulated with a Gaussian distribution.
-#' @param vxf voxel forest created with make.voxelforest function
+#' @param xyz.dt Input data.table which can either be a) a voxel forest created with make.voxelforest function (containing columns X, Y, Z and LAI among others) or b) a discrete lidar point cloud or CHM (containing columns X, Y and Z)
+#' @param input Switch for the input type, which has to be either "vxf" for voxel forest or "lid" for discrete lidar data
 #' @param Xctr X-coordinate of the pulse center
 #' @param Yctr Y-coordinate of the pulse center
-#' @param diameter Diameter of the pulse footprint in meters (e.g. LVIS = 25 m, Icesat GLAS = 70 m)
+#' @param diameter Diameter of the pulse footprint in meters (e.g. LVIS = 25 m, SLICER = 10 m, Icesat GLAS = 70 m, GEDI = 25 m)
 #' @param binwidth Vertical resolution of the waveform in meters
-#' @param k Extinction coefficient
-#' @param sd Standard deviation of the Gaussian energy distribution (for a curve that approaches 0 at the margin of the pulse use sd = 0.4*radius)
+#' @param k Extinction coefficient (only relevant if input = "vxf")
+#' @param sd Standard deviation of the Gaussian energy distribution (for a curve that approaches 0 at the margin of the pulse use sd = 0.4\*radius; for GEDI simulations commonly sd = 0.5\*radius is used, which leads to a more truncated energy distribution)
 #' @param VG.ratio Reflectance ratio between vegetation surface and ground surface
 #' @return Vector of the Lidar waveform (normalized to a sum of 1)
-#' @keywords voxel forest plot lidar large footprint pulse waveform profile gaussian
+#' @keywords voxel forest plot lidar large footprint pulse waveform profile gaussian simulation
 #' @export
 #' @examples in progress
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
-make.large.footprint.lidar.pulse <- function(vxf, Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.4, VG.ratio=2.5){
-  vxf.dt <- data.table(vxf)
+make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.5*12.5, VG.ratio=2.5){
+  require(data.table)
+  xyz.dt <- data.table(xyz.dt)
   # Cut out the voxels that fall into the pulse cylinder
-  sub.dt <- vxf.dt[in.circle(vxf.dt$X, vxf.dt$Y, Xctr, Yctr, diameter/2) == T]
-  # Calculate relative intensity for each voxel using Beer-Lambert light extinction.
-  # Absolute value is irrelevant, because final profile will be normalized to a sum of 1.
-  sub.dt[, I := exp(-k*LAI)]
+  sub.dt <- xyz.dt[in.circle(xyz.dt$X, xyz.dt$Y, Xctr, Yctr, diameter/2) == T]
+  # Calculate intensity for each point. The absolute value is irrelevant, because the final profile will be normalized to a sum of 1.
+  if(input=="vxf"){
+    # Calculate relative intensity for each voxel using Beer-Lambert light extinction based on LAI.
+    sub.dt[, I := exp(-k*LAI)]
+  }else if(input=="lid"){
+    # Assign each point an initial intensity of 1
+    sub.dt[, I := 1]
+  }
   # Adjust the intensity at ground level, considering the vegetation vs. ground refectance ratio
   sub.dt[Z == 0, I := I/VG.ratio]
   # Weight voxels in the pulse center higher than at the margins using a 2D Gaussian weighting function.
