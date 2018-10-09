@@ -47,4 +47,3 @@ in progress
 \keyword{stand}
 \keyword{voxel}
 \keyword{xyz}
-

@@ -27,4 +27,3 @@ deg.min.sec.to.dec.deg(5, 4, 3)
 \keyword{degree}
 \keyword{minute}
 \keyword{second}
-

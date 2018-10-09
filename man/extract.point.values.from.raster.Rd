@@ -31,4 +31,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{extract}
 \keyword{point}
 \keyword{raster}
-

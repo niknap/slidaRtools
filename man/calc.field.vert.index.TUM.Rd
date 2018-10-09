@@ -24,4 +24,3 @@ in progress
 \keyword{heterogeneity}
 \keyword{structure}
 \keyword{vertical}
-

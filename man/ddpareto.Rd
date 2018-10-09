@@ -30,4 +30,3 @@ in progress
 \keyword{law}
 \keyword{power}
 \keyword{size}
-

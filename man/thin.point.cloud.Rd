@@ -34,4 +34,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{subsample}
 \keyword{subset}
 \keyword{thinning}
-

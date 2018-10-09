@@ -29,4 +29,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{origin}
 \keyword{raster}
 \keyword{transposition}
-

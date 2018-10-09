@@ -27,4 +27,3 @@ calc.field.vert.index.BA.layer.TUM(40,1,20)
 \keyword{heterogeneity}
 \keyword{structure}
 \keyword{vertical}
-

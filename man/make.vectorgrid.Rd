@@ -40,4 +40,3 @@ plot(testgrid)
 \keyword{sampling}
 \keyword{shape}
 \keyword{vector}
-

@@ -35,4 +35,3 @@ in progress
 \keyword{resolution}
 \keyword{scale}
 \keyword{top-of-canopy}
-

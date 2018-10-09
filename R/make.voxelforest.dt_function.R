@@ -37,7 +37,7 @@ make.voxelforest.dt <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
                                 stems=F, ground=T, aggregation.func="max", keep=NA){
 
   # Package requirements
-  require(data.table)
+  require(data.table, lib.loc=NA)
 
   #   # Settings for testing
   # minx <- 100

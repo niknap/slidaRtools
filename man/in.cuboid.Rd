@@ -37,4 +37,3 @@ in progress
 \keyword{cuboid}
 \keyword{in}
 \keyword{shape}
-

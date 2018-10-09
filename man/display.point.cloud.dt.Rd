@@ -24,9 +24,6 @@ display.point.cloud.dt(xyz.dt, col.palette = NA, col.var = "Z",
 \description{
 Function for 3-dimensional point cloud visualization.
 }
-\examples{
-in progress
-}
 \author{
 Nikolai Knapp, nikolai.knapp@ufz.de
 }
@@ -38,4 +35,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{plot}
 \keyword{point}
 \keyword{visualization}
-

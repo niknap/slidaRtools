@@ -27,4 +27,3 @@ Nikolai Knapp
 \keyword{shape}
 \keyword{skewness}
 \keyword{symmetry}
-

@@ -24,4 +24,3 @@ plot(test.spdf)
 \keyword{shape}
 \keyword{vector}
 \keyword{vertex}
-

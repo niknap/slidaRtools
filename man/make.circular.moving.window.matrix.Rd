@@ -27,4 +27,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{moving}
 \keyword{raster}
 \keyword{window}
-

@@ -13,4 +13,3 @@ height profiles with a moving window.
 \examples{
 in progress
 }
-

@@ -25,4 +25,3 @@ in progress
 \keyword{heterogeneity}
 \keyword{horizontal}
 \keyword{structure}
-

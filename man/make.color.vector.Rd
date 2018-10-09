@@ -39,4 +39,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{ramp}
 \keyword{scale}
 \keyword{values}
-

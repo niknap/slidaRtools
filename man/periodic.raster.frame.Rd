@@ -37,4 +37,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{raster}
 \keyword{texture}
 \keyword{window}
-

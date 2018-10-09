@@ -39,4 +39,3 @@ in progress
 \keyword{outlier}
 \keyword{percentile}
 \keyword{point}
-

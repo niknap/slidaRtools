@@ -13,7 +13,7 @@
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 display.point.cloud <- function(pc, col.palette=NA, col.var="Z", col.lim=NA, size=1){
-  require(rgl)
+  require(rgl, lib.loc=NA)
   # If no custom color palette is provided, create and apply a blue to red heat color palette
   if(is.na(col.palette)){
     col.palette <- colorRampPalette(c("darkblue", "blue", "cyan", "green", "yellow", "orange", "red", "darkred"), space = "Lab")(50)

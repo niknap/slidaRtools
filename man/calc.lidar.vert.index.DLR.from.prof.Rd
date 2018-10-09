@@ -25,4 +25,3 @@ in progress
 \keyword{profile}
 \keyword{structure}
 \keyword{vertical}
-

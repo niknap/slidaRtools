@@ -29,4 +29,3 @@ in progress
 \keyword{heterogeneity}
 \keyword{index}
 \keyword{profile}
-

@@ -4,7 +4,7 @@
 \alias{rbind.large.dt.files}
 \title{Read large tables from files and rbind them into one huge data table}
 \usage{
-rbind.large.dt.files(path, pattern)
+\method{rbind}{large.dt.files}(path, pattern)
 }
 \arguments{
 \item{path}{...to the directory with the input files}
@@ -30,4 +30,3 @@ in progress
 \keyword{list}
 \keyword{rbind}
 \keyword{table}
-

@@ -33,4 +33,3 @@ reproject.points(xcor=c(0, 100), ycor=c(0, 100), in.crs=utm33n, out.crs=latlon)
 \keyword{projection}
 \keyword{reference}
 \keyword{system}
-

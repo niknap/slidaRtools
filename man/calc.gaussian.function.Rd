@@ -31,4 +31,3 @@ in progress
 \keyword{distribution}
 \keyword{normal}
 \keyword{weighting}
-

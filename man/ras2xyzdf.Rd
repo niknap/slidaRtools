@@ -27,4 +27,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{data.frame}
 \keyword{raster}
 \keyword{table}
-

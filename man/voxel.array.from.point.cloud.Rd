@@ -42,4 +42,3 @@ arr <- voxel.array.from.point.cloud(XYZ.df=pc, res.xy=10, res.z=1)
 \keyword{structure}
 \keyword{volume}
 \keyword{voxel}
-

@@ -35,4 +35,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{density}
 \keyword{distribution}
 \keyword{weighting}
-

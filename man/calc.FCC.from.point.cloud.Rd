@@ -43,4 +43,3 @@ in progress
 \keyword{relative}
 \keyword{resolution}
 \keyword{threshold}
-

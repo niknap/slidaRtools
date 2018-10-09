@@ -37,4 +37,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{rasterization}
 \keyword{replace}
 \keyword{window}
-

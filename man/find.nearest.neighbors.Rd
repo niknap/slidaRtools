@@ -31,4 +31,3 @@ in progress
 \keyword{nearest}
 \keyword{neighbor}
 \keyword{search}
-

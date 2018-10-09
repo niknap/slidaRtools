@@ -64,4 +64,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{stand}
 \keyword{voxel}
 \keyword{xyz}
-

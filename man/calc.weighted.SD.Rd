@@ -28,4 +28,3 @@ weighted.SD(val=val.vec, wt=wt.vec)
 \keyword{standard}
 \keyword{variance}
 \keyword{weighted}
-

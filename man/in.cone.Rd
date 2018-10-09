@@ -37,4 +37,3 @@ in progress
 \keyword{cone}
 \keyword{in}
 \keyword{shape}
-

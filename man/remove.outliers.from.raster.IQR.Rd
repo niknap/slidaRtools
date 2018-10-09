@@ -47,4 +47,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{quartile}
 \keyword{range}
 \keyword{raster}
-

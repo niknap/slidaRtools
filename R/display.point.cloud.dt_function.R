@@ -7,14 +7,13 @@
 #' @param col.lim Vector of two elements specifying the limits of the col.var values
 #' @param size ...of plotted points
 #' @return 3D plot in rgl window
-#' @keywords 3D plot display point cloud graphics visualization lidar
 #' @export
-#' @examples in progress
+#' @keywords 3D plot display point cloud graphics visualization lidar
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 display.point.cloud.dt <- function(xyz.dt, col.palette=NA, col.var="Z", col.lim=NA, size=1){
-  require(rgl)
-  require(data.table)
+  require(rgl, lib.loc=NA)
+  require(data.table, lib.loc=NA)
   xyz.dt <- data.table(xyz.dt)
   # If no custom color palette is provided, create and apply a blue to red heat color palette
   if(is.na(col.palette)){

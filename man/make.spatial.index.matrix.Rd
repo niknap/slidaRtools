@@ -34,4 +34,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{number}
 \keyword{plot}
 \keyword{spatial}
-

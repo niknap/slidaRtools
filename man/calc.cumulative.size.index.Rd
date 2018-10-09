@@ -30,4 +30,3 @@ Friedrich J. Bohn
 \keyword{cumulative}
 \keyword{index}
 \keyword{size}
-

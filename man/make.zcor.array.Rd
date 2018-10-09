@@ -38,4 +38,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{array}
 \keyword{coordinate}
 \keyword{voxel}
-

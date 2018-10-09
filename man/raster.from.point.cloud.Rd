@@ -43,4 +43,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{point}
 \keyword{raster}
 \keyword{rasterization}
-

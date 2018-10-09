@@ -28,6 +28,5 @@ Depends:
     reshape2,
     rgdal,
     rgl,
-    sp,
-    VGAM
-RoxygenNote: 5.0.1
+    sp
+RoxygenNote: 6.0.1

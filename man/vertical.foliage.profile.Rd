@@ -49,4 +49,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{occlusion}
 \keyword{profile}
 \keyword{vegetation}
-

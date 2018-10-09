@@ -37,4 +37,3 @@ in progress
 \keyword{cylinder}
 \keyword{in}
 \keyword{shape}
-

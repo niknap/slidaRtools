@@ -32,4 +32,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{Y}
 \keyword{coordinate}
 \keyword{matrix}
-

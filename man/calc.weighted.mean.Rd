@@ -29,4 +29,3 @@ Nikolai Knapp, nikolai.knapp@ufz.de
 \keyword{standard}
 \keyword{variance}
 \keyword{weighted}
-
