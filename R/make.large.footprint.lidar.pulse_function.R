@@ -12,13 +12,14 @@
 #' @param k Extinction coefficient (only relevant if input = "vxf")
 #' @param sd Standard deviation of the Gaussian energy distribution (for a curve that approaches 0 at the margin of the pulse use sd = 0.4\*radius; for GEDI simulations commonly sd = 0.5\*radius is used, which leads to a more truncated energy distribution)
 #' @param VG.ratio Reflectance ratio between vegetation surface and ground surface
+#' @param weight.var Weighting variable, e.g. set to "Intensity" to use the intensity column in a lidar point cloud
 #' @return Vector of the Lidar waveform (normalized to a sum of 1)
 #' @keywords voxel forest plot lidar large footprint pulse waveform profile gaussian simulation
 #' @export
 #' @examples in progress
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
-make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.5*12.5, VG.ratio=2.5){
+make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.5*12.5, VG.ratio=2.5, weight.var=NA){
   require(data.table)
   xyz.dt <- data.table(xyz.dt)
   # Cut out the voxels that fall into the pulse cylinder
@@ -30,6 +31,10 @@ make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, di
   }else if(input=="lid"){
     # Assign each point an initial intensity of 1
     sub.dt[, I := 1]
+  }
+  # If desired multiply the intensity with a given weighting variable
+  if(!is.na(weight.var)){
+    sub.dt[, I := I * get(weight.var)]
   }
   # Adjust the intensity at ground level, considering the vegetation vs. ground refectance ratio
   sub.dt[Z == 0, I := I/VG.ratio]
