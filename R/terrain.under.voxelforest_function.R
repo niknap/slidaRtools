@@ -1,7 +1,7 @@
 #' Add terrain under a voxelforest
 #'
 #' Function that shifts a voxelforest vertically to add underlying terrain elevation.
-#' @param vxf.dt Input data.table which contains a voxel forest created with make.voxelforest function and the specific settings "keep=C("TreeID", "X", "Y")", i.e. each voxel has to contain the unique tree ID and the stem position
+#' @param vxf.dt Input data.table which contains a voxel forest created with make.voxelforest function and the specific settings "keep=c("TreeID", "X", "Y")", i.e. each voxel has to contain the unique tree ID and the stem position
 #' @param terrain.dt Input data.table which contains X-, Y- and Z-column representing a digital terrain model at 1-m resolution (e.g., can be obtained from a 1-m DTM raster with data.table(ras2xyzdf(dtm.ras)))
 #' @return Data.table containing a voxel forest with terrain
 #' @keywords voxel forest plot lidar terrain elevation DTM DSM DEM CHM point cloud trees vertical altitude
