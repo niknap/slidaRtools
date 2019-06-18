@@ -27,9 +27,9 @@ display.point.cloud.dt <- function(xyz.dt, col.palette=NA, col.var="Z", col.lim=
   # color vector as whole numbers
   col.index <- round((length(col.palette)-1) * (xyz.dt[, get(col.var)]-col.lim[1]) / (col.lim[2]-col.lim[1]))+1
   # Create 3D plot with coloring according to height
-  bg3d("black")
-  plot3d(xyz.dt$X, xyz.dt$Y, xyz.dt$Z, col=col.palette[col.index],
-         aspect=F, axes=F, box=F, xlab="", ylab="", zlab="", size=size)
+  rgl::bg3d("black")
+  rgl::plot3d(xyz.dt$X, xyz.dt$Y, xyz.dt$Z, col=col.palette[col.index],
+              aspect=F, axes=F, box=F, xlab="", ylab="", zlab="", size=size)
 }
 
 
