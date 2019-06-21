@@ -16,16 +16,20 @@
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 make.map.from.spatial.index <- function(spatial.ID, value, res=1, minx=NA, miny=NA, maxx=NA, maxy=NA){
+  require(data.table)
+  require(raster)
   # Count number of cells in X- and Y-direction
   # %/%: integer division operator
   nx <- (maxx - minx) %/% res
   ny <- (maxy - miny) %/% res
-  # Build the matrix
-  id.mx <- matrix(1:(nx*ny), nrow=ny, ncol=nx, byrow=T)
-  # Fill the matrix with values
-  value.mx <- id.mx
-  value.mx[] <- NA
-  value.mx[match(spatial.ID, id.mx)] <- value
+  # Make a data.table with all possible spatial IDs inside the map extent
+  id.dt <- data.table(SpatID=1:(nx*ny))
+  # Make a data.table with all spatial IDs and their values given as input
+  val.dt <- data.table(SpatID=spatial.ID, Value=value)
+  # Merge the Values to the id.dt and fill all IDs with missing value with NA
+  id.dt <- merge(id.dt, val.dt, by="SpatID", all.x=T, sort=T)
+  # Build a matrix from the values
+  value.mx <- matrix(data=id.dt$Value, nrow=ny, ncol=nx, byrow=T)
   # Convert matrix to raster
   ras <- rowmx2ras(value.mx)
   # Adjust the raster extent
