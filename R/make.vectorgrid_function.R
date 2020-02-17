@@ -40,8 +40,10 @@ make.vectorgrid <- function(ll.x=0, ll.y=0, size.x=1, size.y=1, n.x=1, n.y=1, ro
       # Make a polygon
       p = Polygon(corner.mx)
       ps = Polygons(list(p), 1)
-      # Add it to the Polygons list
-      ps.list[[i]] <- Polygons(list(p), ID=i)
+      # Add it to the Polygons list (by default IDs > 1e5 are written in scientific
+      # notation; this is avoided with format function; this is needed for later
+      # conversion to SpatialPolygonsDataFrame)
+      ps.list[[i]] <- Polygons(list(p), ID=format(i, scientific=F))
       i <- i+1
     }
   }
@@ -53,3 +55,7 @@ make.vectorgrid <- function(ll.x=0, ll.y=0, size.x=1, size.y=1, n.x=1, n.y=1, ro
   spdf <- elide(spdf, rotate=rot.angle)
   return(spdf)
 }
+
+
+
+
