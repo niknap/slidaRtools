@@ -15,7 +15,7 @@ calc.discrete.Pareto.lambda <- function(vec){
   # scaling parameter lambda
   ddpareto <- function(x, lambda){
     #require(VGAM)
-    x^-lambda/zeta(lambda)
+    x^-lambda/VGAM::zeta(lambda)
   }
   # Function to return negative 2 times the log-likelihood of data under a
   # discrete Pareto distribution with scaling parameter lambda.

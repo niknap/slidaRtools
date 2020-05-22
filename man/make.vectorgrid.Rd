@@ -4,8 +4,15 @@
 \alias{make.vectorgrid}
 \title{Make a vectorgrid}
 \usage{
-make.vectorgrid(ll.x = 0, ll.y = 0, size.x = 1, size.y = 1, n.x = 1,
-  n.y = 1, rot.angle = 0)
+make.vectorgrid(
+  ll.x = 0,
+  ll.y = 0,
+  size.x = 1,
+  size.y = 1,
+  n.x = 1,
+  n.y = 1,
+  rot.angle = 0
+)
 }
 \arguments{
 \item{ll.x}{X-coordinate of the lower left corner}

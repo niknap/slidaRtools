@@ -4,8 +4,15 @@
 \alias{make.map.from.spatial.index}
 \title{Make rasters from values and spatial indices}
 \usage{
-make.map.from.spatial.index(spatial.ID, value, res = 1, minx = NA,
-  miny = NA, maxx = NA, maxy = NA)
+make.map.from.spatial.index(
+  spatial.ID,
+  value,
+  res = 1,
+  minx = NA,
+  miny = NA,
+  maxx = NA,
+  maxy = NA
+)
 }
 \arguments{
 \item{spatial.ID}{vector containing spatial indices}

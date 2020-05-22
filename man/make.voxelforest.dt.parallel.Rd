@@ -4,10 +4,22 @@
 \alias{make.voxelforest.dt.parallel}
 \title{Make a voxel forest from a tree list using parallelization}
 \usage{
-make.voxelforest.dt.parallel(trees.dt, minx = 0, maxx, miny = 0, maxy,
-  vxl.per.sqm = 4, stems = F, ground = T, aggregation.func = "max",
-  keep = NA, lib.path = NA, run.parallel = F, frac.cores = 0.5,
-  res = 100)
+make.voxelforest.dt.parallel(
+  trees.dt,
+  minx = 0,
+  maxx,
+  miny = 0,
+  maxy,
+  vxl.per.sqm = 4,
+  stems = F,
+  ground = T,
+  aggregation.func = "max",
+  keep = NA,
+  lib.path = NA,
+  run.parallel = F,
+  frac.cores = 0.5,
+  res = 100
+)
 }
 \arguments{
 \item{trees.dt}{A data.table (or data.frame) that contains all trees that form the voxelforest provided

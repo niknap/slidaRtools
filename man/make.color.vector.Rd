@@ -4,8 +4,7 @@
 \alias{make.color.vector}
 \title{Make a color vector}
 \usage{
-make.color.vector(vec, palette = NA, min = NA, max = NA, step = 1,
-  alpha = 1)
+make.color.vector(vec, palette = NA, min = NA, max = NA, step = 1, alpha = 1)
 }
 \arguments{
 \item{vec}{Value vector}

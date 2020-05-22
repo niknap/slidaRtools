@@ -4,14 +4,22 @@
 \alias{biomass.raster.from.treelist.dt}
 \title{Convert a list of trees to a above ground biomass raster}
 \usage{
-biomass.raster.from.treelist.dt(trees.dt, minx = 0, maxx, miny = 0, maxy,
-  dist = "uniform", periodic = F, sd = 0.25)
+biomass.raster.from.treelist.dt(
+  trees.dt,
+  minx = 0,
+  maxx,
+  miny = 0,
+  maxy,
+  dist = "uniform",
+  periodic = F,
+  sd = 0.25
+)
 }
 \arguments{
 \item{trees.dt}{A list of trees provided as a data.table
 with specific requirements: Each row represents one individual. The columns need to
 have the following names and content: X = X-coordinate of tree position, Y = Y-coordinate
-of tree position; CD = tree crown diameter (m), AGB = above ground biomass (t). Ideally the 
+of tree position; CD = tree crown diameter (m), AGB = above ground biomass (t). Ideally the
 data should also have a column TreeID with unique IDs for each individual.}
 
 \item{minx}{Minimal X-coordinate}
@@ -22,11 +30,11 @@ data should also have a column TreeID with unique IDs for each individual.}
 
 \item{maxy}{Maximal Y-coordinate}
 
-\item{dist}{Parameter specifying how AGB will be distributed in space: options are "stem" 
+\item{dist}{Parameter specifying how AGB will be distributed in space: options are "stem"
 for stem-localized, "uniform" for uniformly crown-distributed or "Gaussian" for bell shaped
 crown-distributed.}
 
-\item{periodic}{Boolean enabling periodic boundaries, i.e. if set to TRUE crown parts of trees 
+\item{periodic}{Boolean enabling periodic boundaries, i.e. if set to TRUE crown parts of trees
 that exceed the edges of the area reappear on the opposite side.}
 
 \item{sd}{Standard deviation of the optional Gaussian distribution (default = 0.25)}

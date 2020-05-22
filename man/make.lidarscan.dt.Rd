@@ -4,8 +4,15 @@
 \alias{make.lidarscan.dt}
 \title{Scan a voxel forest with a virtual Lidar}
 \usage{
-make.lidarscan.dt(vxf.dt, P0.AGR = 0.2, k.AGR = 0.2, P0.GR = 0.2,
-  k.GR = 0.2, LAD.prefactor = F, prob.out = F)
+make.lidarscan.dt(
+  vxf.dt,
+  P0.AGR = 0.2,
+  k.AGR = 0.2,
+  P0.GR = 0.2,
+  k.GR = 0.2,
+  LAD.prefactor = F,
+  prob.out = F
+)
 }
 \arguments{
 \item{vxf.dt}{data.table containing the voxel forest (derived from make.voxelforest.dt function)}

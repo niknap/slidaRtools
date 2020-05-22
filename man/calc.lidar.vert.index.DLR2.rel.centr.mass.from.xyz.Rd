@@ -6,8 +6,11 @@
 \title{Calculate vertical structure index suggestion of Victor Cazcarra (DLR)
 from Lidar point cloud}
 \usage{
-calc.lidar.vert.index.DLR2.rel.centr.mass.from.xyz(XYZtable, perc = 0.5,
-  h.min = 0)
+calc.lidar.vert.index.DLR2.rel.centr.mass.from.xyz(
+  XYZtable,
+  perc = 0.5,
+  h.min = 0
+)
 }
 \arguments{
 \item{XYZtable}{Lidar point cloud or CHM in XYZ-table format}

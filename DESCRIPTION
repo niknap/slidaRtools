@@ -15,7 +15,8 @@ Description: This package provides a couple of useful functions to simulate and
 License: GPL-3
 LazyData: TRUE
 Depends:
-    R (>= 3.1.0),
+    R (>= 3.1.0)
+Imports:
     abind,
     data.table,
     grDevices,
@@ -28,5 +29,6 @@ Depends:
     reshape2,
     rgdal,
     rgl,
-    sp
-RoxygenNote: 6.0.1
+    sp,
+    VGAM
+RoxygenNote: 7.1.0

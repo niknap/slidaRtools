@@ -13,5 +13,5 @@
 
 ddpareto <- function(x, lambda){
   #require(VGAM)
-  x^-lambda/zeta(lambda)
+  x^-lambda/VGAM::zeta(lambda)
 }

@@ -4,8 +4,13 @@
 \alias{display.point.cloud}
 \title{Plot point cloud in 3D space}
 \usage{
-display.point.cloud(pc, col.palette = NA, col.var = "Z", col.lim = NA,
-  size = 1)
+display.point.cloud(
+  pc,
+  col.palette = NA,
+  col.var = "Z",
+  col.lim = NA,
+  size = 1
+)
 }
 \arguments{
 \item{pc}{Point cloud in XYZ-table format (important: column names need to be X, Y and Z)}

@@ -6,6 +6,9 @@
 \usage{
 extrema.finder(curve, wr, extr)
 }
+\value{
+
+}
 \description{
 Function that finds local extrema in curves like canopy
 height profiles with a moving window.

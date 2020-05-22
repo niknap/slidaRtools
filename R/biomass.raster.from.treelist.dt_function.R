@@ -26,7 +26,7 @@
 biomass.raster.from.treelist.dt <- function(trees.dt, minx=0, maxx, miny=0, maxy, dist="uniform", periodic=F, sd=0.25){
 
   # Package requirements
-  require(data.table)
+  # require(data.table)
 
   # Settings for testing
   #     minx <- 0
@@ -57,7 +57,7 @@ biomass.raster.from.treelist.dt <- function(trees.dt, minx=0, maxx, miny=0, maxy
 
     # Cast AGB values into X-Y-space to create a matrix. Sum all AGB of different
     # trees that fall into the same pixel
-    suppressWarnings(mx <- acast(data=trees.dt, Y~X, value.var="AGB", fun.aggregate=sum))
+    suppressWarnings(mx <- reshape2::acast(data=trees.dt, Y~X, value.var="AGB", fun.aggregate=sum))
   }
   # Crown-distributed case
   else {
@@ -122,12 +122,12 @@ biomass.raster.from.treelist.dt <- function(trees.dt, minx=0, maxx, miny=0, maxy
 
     # Cast AGB values into X-Y-space to create a matrix. Sum all AGB of different
     # trees that fall into the same pixel
-    suppressWarnings(mx <- acast(data=trees.pixel.dt, Ybox~Xbox, value.var="AGB.dist", fun.aggregate=sum))
+    suppressWarnings(mx <- reshape2::acast(data=trees.pixel.dt, Ybox~Xbox, value.var="AGB.dist", fun.aggregate=sum))
   }
 
   # Convert the matrix into a raster
   agb.ras <- rowmx2ras(mx)
-  agb.ras <- setExtent(agb.ras, c(minx, maxx, miny, maxy))
+  agb.ras <- raster::setExtent(agb.ras, c(minx, maxx, miny, maxy))
   return(agb.ras)
 }
 

@@ -7,7 +7,7 @@
 terrain.under.voxelforest(vxf.dt, terrain.dt)
 }
 \arguments{
-\item{vxf.dt}{Input data.table which contains a voxel forest created with make.voxelforest function and the specific settings "keep=C("TreeID", "X", "Y")", i.e. each voxel has to contain the unique tree ID and the stem position}
+\item{vxf.dt}{Input data.table which contains a voxel forest created with make.voxelforest function and the specific settings "keep=c("TreeID", "X", "Y")", i.e. each voxel has to contain the unique tree ID and the stem position}
 
 \item{terrain.dt}{Input data.table which contains X-, Y- and Z-column representing a digital terrain model at 1-m resolution (e.g., can be obtained from a 1-m DTM raster with data.table(ras2xyzdf(dtm.ras)))}
 }

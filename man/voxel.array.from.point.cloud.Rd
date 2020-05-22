@@ -4,8 +4,14 @@
 \alias{voxel.array.from.point.cloud}
 \title{Convert a point cloud to a voxel array}
 \usage{
-voxel.array.from.point.cloud(XYZ.df, global.h.max = NA, res.xy = 5,
-  res.z = 5, value.var = "Z", func = "count")
+voxel.array.from.point.cloud(
+  XYZ.df,
+  global.h.max = NA,
+  res.xy = 5,
+  res.z = 5,
+  value.var = "Z",
+  func = "count"
+)
 }
 \arguments{
 \item{XYZ.df}{Lidar point cloud in XYZ-data.frame format}

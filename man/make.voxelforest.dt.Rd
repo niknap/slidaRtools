@@ -4,8 +4,18 @@
 \alias{make.voxelforest.dt}
 \title{Make a voxel forest from a tree list}
 \usage{
-make.voxelforest.dt(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm = 4,
-  stems = F, ground = T, aggregation.func = "max", keep = NA)
+make.voxelforest.dt(
+  trees.dt,
+  minx,
+  maxx,
+  miny,
+  maxy,
+  vxl.per.sqm = 4,
+  stems = F,
+  ground = T,
+  aggregation.func = "max",
+  keep = NA
+)
 }
 \arguments{
 \item{trees.dt}{A data.table (or data.frame) that contains all trees that form the voxelforest provided

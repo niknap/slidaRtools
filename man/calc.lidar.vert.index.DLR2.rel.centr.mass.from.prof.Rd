@@ -6,8 +6,11 @@
 \title{Calculate vertical structure index suggestion of Victor Cazcarra (DLR)
 from Lidar profile or vertical foliage profile}
 \usage{
-calc.lidar.vert.index.DLR2.rel.centr.mass.from.prof(prof, perc = 0.5,
-  h.min = 1)
+calc.lidar.vert.index.DLR2.rel.centr.mass.from.prof(
+  prof,
+  perc = 0.5,
+  h.min = 1
+)
 }
 \arguments{
 \item{perc}{Fraction between 0 and 1 (default 0.5) to specify Hperc = perc * Hmax}

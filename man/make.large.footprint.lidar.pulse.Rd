@@ -4,9 +4,18 @@
 \alias{make.large.footprint.lidar.pulse}
 \title{Scan a voxel forest with a virtual large footprint Lidar}
 \usage{
-make.large.footprint.lidar.pulse(xyz.dt, input = "vxf", Xctr, Yctr,
-  diameter = 25, binwidth = 1, k = 0.2, sd = 0.5 * 12.5,
-  VG.ratio = 2.5)
+make.large.footprint.lidar.pulse(
+  xyz.dt,
+  input = "vxf",
+  Xctr,
+  Yctr,
+  diameter = 25,
+  binwidth = 1,
+  k = 0.2,
+  sd = 0.5 * 12.5,
+  VG.ratio = 2.5,
+  weight.var = NA
+)
 }
 \arguments{
 \item{xyz.dt}{Input data.table which can either be a) a voxel forest created with make.voxelforest function (containing columns X, Y, Z and LAI among others) or b) a discrete lidar point cloud or CHM (containing columns X, Y and Z)}
@@ -26,6 +35,8 @@ make.large.footprint.lidar.pulse(xyz.dt, input = "vxf", Xctr, Yctr,
 \item{sd}{Standard deviation of the Gaussian energy distribution (for a curve that approaches 0 at the margin of the pulse use sd = 0.4\*radius; for GEDI simulations commonly sd = 0.5\*radius is used, which leads to a more truncated energy distribution)}
 
 \item{VG.ratio}{Reflectance ratio between vegetation surface and ground surface}
+
+\item{weight.var}{Weighting variable, e.g. set to "Intensity" to use the intensity column in a lidar point cloud}
 }
 \value{
 Vector of the Lidar waveform (normalized to a sum of 1)

@@ -4,8 +4,15 @@
 \alias{remove.outliers.from.point.cloud.IQR}
 \title{Remove outliers from point cloud}
 \usage{
-remove.outliers.from.point.cloud.IQR(pc, n = 50, low.perc = 0.25,
-  high.perc = 0.75, fac = 1.5, high = T, low = T)
+remove.outliers.from.point.cloud.IQR(
+  pc,
+  n = 50,
+  low.perc = 0.25,
+  high.perc = 0.75,
+  fac = 1.5,
+  high = T,
+  low = T
+)
 }
 \arguments{
 \item{pc}{Input point cloud (first 3 columns need to be "X", "Y" and "Z")}

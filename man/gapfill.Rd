@@ -4,8 +4,12 @@
 \alias{gapfill}
 \title{Fill raster gaps}
 \usage{
-gapfill(in.ras, fill.window.size = 5, fill.window.type = "circle",
-  fill.value = "mean")
+gapfill(
+  in.ras,
+  fill.window.size = 5,
+  fill.window.type = "circle",
+  fill.value = "mean"
+)
 }
 \arguments{
 \item{in.ras}{Input raster}

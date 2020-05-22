@@ -4,8 +4,13 @@
 \alias{display.point.cloud.dt}
 \title{Plot point cloud in 3D space}
 \usage{
-display.point.cloud.dt(xyz.dt, col.palette = NA, col.var = "Z",
-  col.lim = NA, size = 1)
+display.point.cloud.dt(
+  xyz.dt,
+  col.palette = NA,
+  col.var = "Z",
+  col.lim = NA,
+  size = 1
+)
 }
 \arguments{
 \item{col.palette}{Color palette}

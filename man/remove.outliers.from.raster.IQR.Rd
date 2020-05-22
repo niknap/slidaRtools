@@ -4,8 +4,15 @@
 \alias{remove.outliers.from.raster.IQR}
 \title{Remove outliers from raster}
 \usage{
-remove.outliers.from.raster.IQR(ras, rad = 5, low.perc = 0.25,
-  high.perc = 0.75, fac = 1.5, high = T, low = T)
+remove.outliers.from.raster.IQR(
+  ras,
+  rad = 5,
+  low.perc = 0.25,
+  high.perc = 0.75,
+  fac = 1.5,
+  high = T,
+  low = T
+)
 }
 \arguments{
 \item{ras}{Input raster}

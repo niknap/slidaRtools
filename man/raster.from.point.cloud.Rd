@@ -4,8 +4,14 @@
 \alias{raster.from.point.cloud}
 \title{Convert a point cloud to a raster}
 \usage{
-raster.from.point.cloud(pc, xcor = "X", ycor = "Y", var = "Z", res = 1,
-  func = "max")
+raster.from.point.cloud(
+  pc,
+  xcor = "X",
+  ycor = "Y",
+  var = "Z",
+  res = 1,
+  func = "max"
+)
 }
 \arguments{
 \item{pc}{Point cloud in XYZ-table format}
