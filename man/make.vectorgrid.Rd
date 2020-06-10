@@ -36,8 +36,14 @@ SpatialPolygonsDataFrame
 Function that creates as vectorgrid of rectangular cells.
 }
 \examples{
-testgrid <- make.vectorgrid(ll.x=0, ll.y=0, size.x=2, size.y=3, n.x=10, n.y=5)
-plot(testgrid)
+testgrid.spdf <- make.vectorgrid(ll.x=0, ll.y=0, size.x=2, size.y=3, n.x=10, n.y=5)
+plot(testgrid.spdf)
+sub.spdf <- subset(testgrid, ID==1)
+plot(sub.spdf, add=T, col="red")
+sub.spdf <- subset(testgrid, ID==2)
+plot(sub.spdf, add=T, col="green")
+sub.spdf <- subset(testgrid, ID==11)
+plot(sub.spdf, add=T, col="blue")
 }
 \keyword{fishnet}
 \keyword{grid}
