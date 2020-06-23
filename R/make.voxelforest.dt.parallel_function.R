@@ -6,7 +6,7 @@
 #' have the following names and content: X = X-coordinate of tree position, Y = Y-coordinate
 #' of tree position; H = tree height (m), CD = tree crown diameter (m), CL = tree crown length (m),
 #' LAD = leaf area density of the tree (m2/m3), CS = tree crown shape (coding: 1 = cylinder,
-#' 2 = spheroid, 3 = cone)
+#' 2 = spheroid, 3 = cone, 4 = icecone)
 #' @param minx Minimum X-coordinate of the simulated area
 #' @param maxx Maximum X-coordinate of the simulated area
 #' @param miny Minimum Y-coordinate of the simulated area
@@ -27,24 +27,21 @@
 #' the output the columns "X" and "Y" specify the voxel coordinates. Thus, the columns
 #' containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 #' will appear in the output under their original input name.
-#' @param lib.path string specifying the path from where to load the R packages. Should be set to .libPaths()[1].
 #' @param run.parallel boolean to specify whether to use parallelization or not
 #' @param frac.cores fraction of available cores to use for parallelization
 #' @param res resolution (side length) of the parallelized subunits
 #' @return data.table object containing a XYZ-table of tree crown voxels, ground voxels and maybe tree stem voxels
 #' @keywords voxel forest plot stand lidar point cloud xyz parallel
+#' @import data.table
+#' @import parallel
 #' @export
 #' @examples in progress
 #' @author Nikolai Knapp, nikolai.knapp@ufz.de
 
 make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                          vxl.per.sqm=4, stems=F, ground=T,
-                                         aggregation.func="max", keep=NA, lib.path=NA,
+                                         aggregation.func="max", keep=NA,
                                          run.parallel=F, frac.cores=0.5, res=100){
-  # Package requirements
-  # lib.path <- .libPaths()[1]
-  require(data.table, lib.loc=lib.path)
-  require(parallel, lib.loc=lib.path)
 
   # Convert treelist to data.table
   trees.dt <- data.table(trees.dt)
@@ -145,11 +142,13 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
         }
 
         # Check if certain columns should be kept
-        if(is.na(keep)){
-          # Subset only the relevant columns
-          voxelforest.dt <- subset(voxelforest.dt, select=c("Xbox", "Ybox", "Zbox", "LAD"))
-          setnames(voxelforest.dt, c("X", "Y", "Z", "LAD"))
-          voxelforest.dt$LAD <- round(voxelforest.dt$LAD, 2)
+        if(length(keep) == 1){
+          if(is.na(keep)){
+            # Subset only the relevant columns
+            voxelforest.dt <- subset(voxelforest.dt, select=c("Xbox", "Ybox", "Zbox", "LAD"))
+            setnames(voxelforest.dt, c("X", "Y", "Z", "LAD"))
+            voxelforest.dt$LAD <- round(voxelforest.dt$LAD, 2)
+          }
         } else {
           voxelforest.dt <- subset(voxelforest.dt, select=c("Xbox", "Ybox", "Zbox", "LAD", keep))
           keep[which(keep == "X")] <- "Xstem"
@@ -162,15 +161,17 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
         # The syntax from the data.table package takes the statistic from the column "value", grouped by unique
         # combinations of columns "X", "Y" and "Z" and writes it to a column "value" in the output.
         # Aggregation can only be performed if no additional columns should be kept, to avoid ambiguities.
-        if(is.na(keep)){
-          if(aggregation.func == "max"){
-            voxelforest.dt <- voxelforest.dt[,.(LAD=max(LAD)), by='X,Y,Z']
-          } else if(aggregation.func == "mean"){
-            voxelforest.dt <- voxelforest.dt[,.(LAD=mean(LAD)), by='X,Y,Z']
-          } else if(aggregation.func == "min"){
-            voxelforest.dt <- voxelforest.dt[,.(LAD=min(LAD)), by='X,Y,Z']
-          } else if(aggregation.func == "sum"){
-            voxelforest.dt <- voxelforest.dt[,.(LAD=sum(LAD)), by='X,Y,Z']
+        if(length(keep) == 1){
+          if(is.na(keep)){
+            if(aggregation.func == "max"){
+              voxelforest.dt <- voxelforest.dt[,.(LAD=max(LAD)), by='X,Y,Z']
+            } else if(aggregation.func == "mean"){
+              voxelforest.dt <- voxelforest.dt[,.(LAD=mean(LAD)), by='X,Y,Z']
+            } else if(aggregation.func == "min"){
+              voxelforest.dt <- voxelforest.dt[,.(LAD=min(LAD)), by='X,Y,Z']
+            } else if(aggregation.func == "sum"){
+              voxelforest.dt <- voxelforest.dt[,.(LAD=sum(LAD)), by='X,Y,Z']
+            }
           }
         }
 

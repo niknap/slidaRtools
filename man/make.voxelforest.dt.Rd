@@ -23,7 +23,7 @@ with specific requirements: Each row represents one individual. The columns need
 have the following names and content: X = X-coordinate of tree position, Y = Y-coordinate
 of tree position; H = tree height (m), CD = tree crown diameter (m), CL = tree crown length (m),
 LAD = leaf area density of the tree (m2/m3), CS = tree crown shape (coding: 1 = cylinder,
-2 = spheroid, 3 = cone)}
+2 = spheroid, 3 = cone, 4 = icecone)}
 
 \item{minx}{Minimum X-coordinate of the simulated area}
 

@@ -15,7 +15,6 @@ make.voxelforest.dt.parallel(
   ground = T,
   aggregation.func = "max",
   keep = NA,
-  lib.path = NA,
   run.parallel = F,
   frac.cores = 0.5,
   res = 100
@@ -27,7 +26,7 @@ with specific requirements: Each row represents one individual. The columns need
 have the following names and content: X = X-coordinate of tree position, Y = Y-coordinate
 of tree position; H = tree height (m), CD = tree crown diameter (m), CL = tree crown length (m),
 LAD = leaf area density of the tree (m2/m3), CS = tree crown shape (coding: 1 = cylinder,
-2 = spheroid, 3 = cone)}
+2 = spheroid, 3 = cone, 4 = icecone)}
 
 \item{minx}{Minimum X-coordinate of the simulated area}
 
@@ -57,8 +56,6 @@ ID of each tree should be available for each voxel. X and Y are special cases, b
 the output the columns "X" and "Y" specify the voxel coordinates. Thus, the columns
 containing the stem coordinates are renamed to "Xstem" and "Ystem". Other kept columns
 will appear in the output under their original input name.}
-
-\item{lib.path}{string specifying the path from where to load the R packages. Should be set to .libPaths()[1].}
 
 \item{run.parallel}{boolean to specify whether to use parallelization or not}
 

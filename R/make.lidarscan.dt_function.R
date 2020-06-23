@@ -18,11 +18,11 @@
 #' If prob.out=T the function will return a list containing two data.tables: 1) the Lidar
 #' point cloud and 2) the voxel forest with Lidar return probability info.
 #' @keywords voxel forest plot stand lidar point cloud xyz
+#' @import data.table
 #' @export
 #' @examples in progress
 
 make.lidarscan.dt <- function(vxf.dt, P0.AGR=0.2, k.AGR=0.2, P0.GR=0.2, k.GR=0.2, LAD.prefactor=F, prob.out=F){
-  require(data.table)
 
   # Convert voxelforest to data.table
   voxelforest.dt <- data.table(vxf.dt)

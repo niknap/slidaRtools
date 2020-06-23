@@ -15,10 +15,10 @@ Description: This package provides a couple of useful functions to simulate and
 License: GPL-3
 LazyData: TRUE
 Depends:
-    R (>= 3.1.0)
+    R (>= 3.1.0),
+    data.table
 Imports:
     abind,
-    data.table,
     grDevices,
     maptools,
     plyr,
