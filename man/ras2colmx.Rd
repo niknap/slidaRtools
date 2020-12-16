@@ -13,8 +13,8 @@ ras2colmx(ras)
 Matrix (cell order bycol)
 }
 \description{
-Convert a raster with origin in lower left corner to a matrix with origin 
-in upper left corner and with cell order filling column after column 
+Convert a raster with origin in lower left corner to a matrix with origin
+in upper left corner and with cell order filling column after column
 from top to bottom (bycol)
 }
 \examples{

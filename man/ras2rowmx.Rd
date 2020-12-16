@@ -13,8 +13,8 @@ ras2rowmx(ras)
 Matrix (cell order byrow)
 }
 \description{
-Convert a raster with origin in lower left corner to a matrix with origin 
-in upper left corner and with cell order filling row after row 
+Convert a raster with origin in lower left corner to a matrix with origin
+in upper left corner and with cell order filling row after row
 from left to right (byrow)
 }
 \examples{

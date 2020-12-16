@@ -1,3 +1,22 @@
+# Copyright (C) 2017 Dr. Nikolai Knapp, UFZ
+#
+# This file is part of the slidaRtools R package.
+#
+# The slidaRtools R package is free software: you can redistribute
+# it and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# slidaRtools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with slidaRtools If not, see <http://www.gnu.org/licenses/>.
+
+
+
 #' Calculate vertical structure index
 #'
 #' Function for vertical index from TUM calculated from inventory data.
@@ -14,14 +33,14 @@ calc.field.vert.index.BA.layer.TUM <- function(H.vec, D.vec, CL.vec){
   h.max <- max(H.vec, na.rm=T)
   h.80 <- 0.8*h.max
   h.50 <- 0.5*h.max
-  
+
   # Basal area in layer 1 (100%-80%)
   BA1 = 0
   # Basal area in layer 2 (80%-50%)
   BA2 = 0
   # Basal area in layer 3 (50%-0%)
   BA3 = 0
-  
+
   for (tree in 1:length(H.vec)) {
     tree.dbh = D.vec[tree]
     tree.ba = pi*(tree.dbh/2)^2
@@ -49,12 +68,12 @@ calc.field.vert.index.BA.layer.TUM <- function(H.vec, D.vec, CL.vec){
       ba.fraction.50 = 0
       ba.fraction.0 = 1
     }
-    
+
     BA1 = BA1 + (tree.ba * ba.fraction.80)
     BA2 = BA2 + (tree.ba * ba.fraction.50)
     BA3 = BA3 + (tree.ba * ba.fraction.0)
   }
-  
+
   # If max. H <= 5 m all trees belong to layer 1
   if(h.max <= 5){
     BA1 <- sum(pi*(D.vec/2)^2)

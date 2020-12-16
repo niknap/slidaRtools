@@ -22,7 +22,7 @@ data.table of X-, Y- and Z-coordinates with periodic boundaries
 }
 \description{
 Function that creates periodic boundaries for point clouds, i.e. points
-that exceed the boundaries of the area re-appear on the opposite side 
+that exceed the boundaries of the area re-appear on the opposite side
 of the area.
 }
 \examples{

@@ -9,7 +9,7 @@ calc.ShannonIndex(vec, ex.vec = NA)
 \arguments{
 \item{vec}{Vector of counts or relative proportions}
 
-\item{ex.vec}{Vector indices of elements in vec that should be excluded 
+\item{ex.vec}{Vector indices of elements in vec that should be excluded
 (e.g. to exclude ground return of a Lidar profile set to 1)}
 }
 \value{

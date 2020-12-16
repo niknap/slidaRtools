@@ -1,6 +1,25 @@
+# Copyright (C) 2017 Dr. Nikolai Knapp, UFZ
+#
+# This file is part of the slidaRtools R package.
+#
+# The slidaRtools R package is free software: you can redistribute
+# it and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# slidaRtools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with slidaRtools If not, see <http://www.gnu.org/licenses/>.
+
+
+
 #' Calculate horizontal structure index from Lidar profile
 #'
-#' Function for horizontal index from UFZ (inspired by TUM index for field data) 
+#' Function for horizontal index from UFZ (inspired by TUM index for field data)
 #' calculated from Lidar vertical profile data
 #' @param prof Lidar profile as vector with height bins as names
 #' @return Index of horizontal forest structure
@@ -29,7 +48,7 @@ calc.lidar.horiz.index.UFZ.from.prof <- function(prof){
     return(lidar.horiz.index.TUM)
   } else {
     return(0)
-  } 
+  }
 }
 
 

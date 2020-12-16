@@ -13,7 +13,7 @@ calc.lidar.vert.index.UFZ.from.xyz(XYZtable)
 Index of vertical forest structure
 }
 \description{
-Function for vertical index from UFZ (inspired by TUM index for field data) 
+Function for vertical index from UFZ (inspired by TUM index for field data)
 calculated from Lidar XYZ-table data (point cloud or CHM)
 }
 \examples{

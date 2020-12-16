@@ -1,10 +1,29 @@
+# Copyright (C) 2017 Dr. Nikolai Knapp, UFZ
+#
+# This file is part of the slidaRtools R package.
+#
+# The slidaRtools R package is free software: you can redistribute
+# it and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# slidaRtools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with slidaRtools If not, see <http://www.gnu.org/licenses/>.
+
+
+
 #' Extract point values from raster
 #'
-#' Function that extracts values from an underlying raster at the position 
+#' Function that extracts values from an underlying raster at the position
 #' of each point of an overlying point cloud.
 #' @param pc Input point cloud
 #' @param ras Input raster
-#' @return Vector of raster values for each point, that can be added as a 
+#' @return Vector of raster values for each point, that can be added as a
 #' new column to the point cloud dataframe
 #' @keywords raster point cloud extract CHM DTM
 #' @export
@@ -38,7 +57,7 @@ extract.point.values.from.raster <- function(pc, ras){
   RasterValue <- pc$RasterValue
   return(RasterValue)
 }
-  
+
 
 
 

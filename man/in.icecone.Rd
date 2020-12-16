@@ -29,7 +29,7 @@ boolean or matrix of booleans
 \description{
 Function that checks for each X-Y-coordinate pair, whether the point lies in an
 "ice cone" of a given center, radius and height. The ice cone consists of a hemi-
-spheroid forming the upper half (ice ball) and a bottom-up cone forming the 
+spheroid forming the upper half (ice ball) and a bottom-up cone forming the
 lower half (waffle).
 Works with single numbers or matrices of X- and Y-coordinates as input.
 }

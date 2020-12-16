@@ -1,3 +1,22 @@
+# Copyright (C) 2017 Dr. Nikolai Knapp, UFZ
+#
+# This file is part of the slidaRtools R package.
+#
+# The slidaRtools R package is free software: you can redistribute
+# it and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# slidaRtools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with slidaRtools If not, see <http://www.gnu.org/licenses/>.
+
+
+
 #' Convert a point cloud to a voxel array
 #'
 #' Function that takes a point cloud in XYZ-data.frame format and returns
@@ -58,7 +77,7 @@ voxel.array.from.point.cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   extx <- (max(XYZ.dt$X)-min(XYZ.dt$X))/res.xy+1
   exty <- (max(XYZ.dt$Y)-min(XYZ.dt$Y))/res.xy+1
   extz <- (max(XYZ.dt$Z)-min(XYZ.dt$Z))/res.z+1
-  array.3D <- array(data=0, dim=c(length(namesx), length(namesy), length(namesz)), 
+  array.3D <- array(data=0, dim=c(length(namesx), length(namesy), length(namesz)),
                        dimnames=list(namesx, namesy, namesz))
   # Write the values from the casted array to the total array
   afill(array.3D) <- cast.array.3D

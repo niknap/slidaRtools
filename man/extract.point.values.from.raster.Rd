@@ -12,11 +12,11 @@ extract.point.values.from.raster(pc, ras)
 \item{ras}{Input raster}
 }
 \value{
-Vector of raster values for each point, that can be added as a 
+Vector of raster values for each point, that can be added as a
 new column to the point cloud dataframe
 }
 \description{
-Function that extracts values from an underlying raster at the position 
+Function that extracts values from an underlying raster at the position
 of each point of an overlying point cloud.
 }
 \examples{

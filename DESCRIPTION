@@ -2,7 +2,7 @@ Package: slidaRtools
 Type: Package
 Title: Tools for lidar simulation and lidar processing
 Version: 0.1.0
-Author: Nikolai Knapp
+Author: Nikolai Knapp, Helmholtz-Zentrum für Umweltforschung GmbH - UFZ 
 Maintainer: Nikolai Knapp <nikolai.knapp@ufz.de>
 Description: This package provides a couple of useful functions to simulate and
     process lidar data of forests. Lidar simulation means to create discrete lidar

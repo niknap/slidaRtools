@@ -13,7 +13,7 @@ calc.lidar.horiz.index.UFZ.from.xyz(XYZtable)
 Index of horizontal forest structure
 }
 \description{
-Function for horizontal index from UFZ (inspired by TUM index for field data) 
+Function for horizontal index from UFZ (inspired by TUM index for field data)
 calculated from Lidar XYZ-table data (point cloud or CHM)
 }
 \examples{

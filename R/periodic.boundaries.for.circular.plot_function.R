@@ -1,3 +1,22 @@
+# Copyright (C) 2017 Dr. Nikolai Knapp, UFZ
+#
+# This file is part of the slidaRtools R package.
+#
+# The slidaRtools R package is free software: you can redistribute
+# it and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# slidaRtools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with slidaRtools If not, see <http://www.gnu.org/licenses/>.
+
+
+
 #' Periodic boundaries for circular forest plots
 #'
 #' Function that creates periodic boundaries for voxelforests along circular plot borders
@@ -24,7 +43,7 @@ periodic.boundaries.for.circular.plot <- function(vxf.dt, Xctr, Yctr, radius, cl
   # Make sure to use data.table format
   require(data.table)
   vxf.dt <- data.table(vxf.dt)
-  
+
   # Subset ground voxels inside the circle
   gr.dt <- subset(vxf.dt, Z == 0 & in.circle(X, Y, Xctr, Yctr, radius))
 

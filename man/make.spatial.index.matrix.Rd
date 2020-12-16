@@ -21,7 +21,7 @@ make.spatial.index.matrix(minx = 0, maxx, miny = 0, maxy, res)
 matrix of the arrangement of spatial indices
 }
 \description{
-Create a sampling plot matrix for a given area with a 
+Create a sampling plot matrix for a given area with a
 specific resolution
 }
 \examples{
