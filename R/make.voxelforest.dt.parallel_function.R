@@ -50,7 +50,6 @@
 #' @param frac.cores fraction of available cores to use for parallelization
 #' @param res resolution (side length) of the parallelized subunits
 #' @return data.table object containing a XYZ-table of tree crown voxels, ground voxels and maybe tree stem voxels
-#' @keywords voxel forest plot stand lidar point cloud xyz parallel
 #' @import data.table
 #' @import parallel
 #' @export

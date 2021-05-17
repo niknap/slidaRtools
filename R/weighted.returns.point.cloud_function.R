@@ -40,9 +40,9 @@ weighted.returns.point.cloud <- function(pc, cell.size=1){
   maxy <- max(pc$Y)
   maxx.gridcell <- ceiling((maxx-minx)/cell.size)
   maxy.gridcell <- ceiling((maxy-miny)/cell.size)
-  grid.mx <- matrix(1:(maxx.gridcell*maxy.gridcell), nrow=maxy.gridcell, ncol=maxx.gridcell)
   # Calculate the cell number for each point
-  pc$CellNo <- calcPlotNo(pc$X, pc$Y, cell.size, grid.mx)
+  pc$CellNo <- calc.spatial.index(xcor=pc$X, ycor=pc$Y, res=cell.size,
+                                  minx=minx, miny=miny, maxx=maxx, maxy=maxy)
   # Count how many returns fall into each cell
   returns.per.cell.count <- table(pc$CellNo)
   # Calculate the return weight by dividing 1 by the number of returns in that cell
