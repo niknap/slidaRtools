@@ -75,12 +75,3 @@ in progress
 \author{
 Nikolai Knapp, nikolai.knapp@ufz.de
 }
-\keyword{cloud}
-\keyword{forest}
-\keyword{lidar}
-\keyword{parallel}
-\keyword{plot}
-\keyword{point}
-\keyword{stand}
-\keyword{voxel}
-\keyword{xyz}
