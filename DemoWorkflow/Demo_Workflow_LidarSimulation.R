@@ -1,9 +1,19 @@
 ################################################################################
-# Demonstration workflow for simulating a lidar point cloud (Knapp et al. 2018)
-# from a given forest inventory table using the implementation in the
-# slidaRtools package
-# Contact: nikolai.knapp@ufz.de
+# Demonstration workflow for simulating a lidar point cloud from a given forest
+# inventory table using the implementation in the slidaRtools package
+# Contact: nikolai.knapp@thuenen.de
+#
+# References:
+#
+# Knapp, N., Fischer, R., & Huth, A. (2018). Linking lidar and forest modeling
+# to assess biomass estimation across scales and disturbance states.
+# Remote Sensing of Environment, 205, 199-209.
+#
+# Knapp, N., Huth, A., & Fischer, R. (2021). Tree crowns cause border effects
+# in area-based biomass estimations from remote sensing.
+# Remote Sensing, 13(8), 1592.
 ################################################################################
+
 
 #############
 # Preparation
@@ -65,13 +75,29 @@ head(vxf2.dt)
 ###############################
 
 # Simulate a lidar point cloud from the voxelforest
-lid.dt <- make.lidarscan.dt(vxf.dt, P0.AGR = 0.2, k.AGR = 0.2, P0.GR = 0.2)
-display.point.cloud.dt(lid.dt)
-head(lid.dt)
+sim.lid.dt <- make.lidarscan.dt(vxf.dt, P0.AGR = 0.2, k.AGR = 0.2, P0.GR = 0.2)
+display.point.cloud.dt(sim.lid.dt)
+head(sim.lid.dt)
 
 # Aggregate to vertical profile
-prof.vec <- make.profile.from.XYZ(lid.dt)
-display.profile(prof.vec, line.col="green")
+sim.lid.prof.vec <- make.profile.from.XYZ(sim.lid.dt)
+display.profile(sim.lid.prof.vec, line.col="blue")
+
+
+###############################
+# Leaf area density profiles
+###############################
+
+# Derive leaf area density profile for the voxelforest
+sel.col <- c("X", "Y", "Z", "LAD")
+xyz.lad.dt <- vxf.dt[, ..sel.col]
+lad.prof.vec <- make.profile.from.XYZ.value(xyz.lad.dt, stat="sum")
+# Set ground value to zero, because ground area is not leaf area
+lad.prof.vec[1] <- 0
+# Divide by the area (here 1 ha) to get to m2/m3 units
+lad.prof.vec <- lad.prof.vec / 10000
+display.profile(lad.prof.vec, line.col="green",
+                xlab=bquote("Leaf area density [m"^2 ~ "m"^-3 ~"]"))
 
 
 #############################
@@ -88,11 +114,15 @@ display.profile(wf.gedi.vec, line.col="red", xlab="Relative energy")
 wf.icesat.vec <- make.large.footprint.lidar.pulse(vxf.dt, Xctr=50, Yctr=50,
                                                   diameter=70, k=0.2,
                                                   sd=0.25*70, VG.ratio=1)
-display.profile(wf.icesat.vec, add=T, line.col="blue")
+display.profile(wf.icesat.vec, add=T, line.col="orange")
 
 # Add the normalized simulated ALS profile to the plot
-norm.prof.vec <- prof.vec/sum(prof.vec)
-display.profile(norm.prof.vec, add=T, line.col="green")
+norm.sim.lid.prof.vec <- sim.lid.prof.vec/sum(sim.lid.prof.vec)
+display.profile(norm.sim.lid.prof.vec, add=T, line.col="blue")
+
+# Add the normalized leaf area density profile to the plot
+norm.lad.prof.vec<- lad.prof.vec/sum(lad.prof.vec)
+display.profile(norm.lad.prof.vec, add=T, line.col="green")
 
 
 ###########################
@@ -119,11 +149,11 @@ display.point.cloud.dt(vxf.dt, col.var="TreeID",
                        col.lim=c(0, max.TreeID), size=2)
 
 # Simulate a lidar point cloud
-lid.dt <- make.lidarscan.dt(vxf.dt, P0.AGR = 0.2, k.AGR = 0.2, P0.GR = 0.2)
-head(lid.dt)
+sim.lid.dt <- make.lidarscan.dt(vxf.dt, P0.AGR = 0.2, k.AGR = 0.2, P0.GR = 0.2)
+head(sim.lid.dt)
 
 # Visualize with TreeID coloring
-display.point.cloud.dt(lid.dt, col.var="TreeID",
+display.point.cloud.dt(sim.lid.dt, col.var="TreeID",
                        col.palette=rainbow(max.TreeID)[sample(max.TreeID)],
                        col.lim=c(0, max.TreeID), size=2)
 
@@ -160,8 +190,8 @@ vxf.terrain.dt <- terrain.under.voxelforest(vxf.dt, terrain.dt)
 display.point.cloud.dt(vxf.terrain.dt, size=2)
 
 # Simulate lidar point cloud
-lid.dt <- make.lidarscan.dt(vxf.terrain.dt)
-display.point.cloud.dt(lid.dt, size=2)
+sim.lid.dt <- make.lidarscan.dt(vxf.terrain.dt)
+display.point.cloud.dt(sim.lid.dt, size=2)
 
 # Compare DSMs on flat and hilly terrain
 dsm.flat.ras <- raster.from.point.cloud(vxf.dt, res=1)
