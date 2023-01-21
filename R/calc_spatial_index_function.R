@@ -33,9 +33,9 @@
 #' @keywords spatial index plot number
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-calc.spatial.index <- function(xcor, ycor, res=1, minx=NA, miny=NA, maxx=NA, maxy=NA, exclude.maxx=T){
+calc_spatial_index <- function(xcor, ycor, res=1, minx=NA, miny=NA, maxx=NA, maxy=NA, exclude.maxx=T){
   # If no coordinate limits are given use the extrema of the data as limits
   if(is.na(minx)){
     minx <- floor(min(xcor, na.rm=T))

@@ -25,7 +25,7 @@
 #' @keywords raster conversion coordinate XYZ table data.table
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
 ras2xyzdt <- function(ras){
   require(raster)

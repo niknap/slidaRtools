@@ -31,8 +31,9 @@
 #' @keywords forest structure voxel array empty space canopy volume Lidar point cloud XYZ
 #' @export
 #' @examples arr <- voxel.array.from.point.cloud(XYZ.df=pc, res.xy=10, res.z=1)
+#' @author Nikolai Knapp
 
-voxel.array.from.point.cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.z=5, value.var="Z", func="count"){
+voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.z=5, value.var="Z", func="count"){
   require(data.table)
   require(reshape2)
   require(abind)

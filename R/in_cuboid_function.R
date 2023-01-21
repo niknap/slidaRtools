@@ -17,10 +17,10 @@
 
 
 
-#' Check if point lies within a cylinder
+#' Check if point lies within a cuboid
 #'
 #' Function that checks for each X-Y-coordinate pair, whether the point lies in a
-#' cylinder of a given center, radius and height. Works with single numbers or matrices of
+#' cuboid of a given center, side length and height. Works with single numbers or matrices of
 #' X- and Y-coordinates as input.
 #' @param Xcor X-coordinate of the point
 #' @param Ycor Y-coordinate of the point
@@ -28,16 +28,18 @@
 #' @param Xctr X-coordinate of the center
 #' @param Yctr Y-coordinate of the center
 #' @param Zbase Z-coordinate of the lower end
-#' @param radius ...of the cylinder
-#' @param height ...of the cylinder
+#' @param sidelength horizontal length and width of the cuboid
+#' @param height ...of the cuboid
 #' @return boolean or matrix of booleans
-#' @keywords in cylinder shape
+#' @keywords in cuboid shape
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-in.cylinder <- function(Xcor, Ycor, Zcor, Xctr, Yctr, Zbase, radius, height){
+in_cuboid <- function(Xcor, Ycor, Zcor, Xctr, Yctr, Zbase, sidelength, height){
   result <- ifelse(Zcor >= Zbase & Zcor <= (Zbase + height) &
-                          (Xcor - Xctr)^2 + (Ycor - Yctr)^2 <= radius^2, 1, 0)
+                   Ycor >= (Yctr - sidelength/2) & Yarray <= (Yct + sidelength/2) &
+                   Xcor >= (Xctr - sidelength/2) & Xarray <= (Xct + sidelength/2), 1, 0)
   return(result)
 }
 

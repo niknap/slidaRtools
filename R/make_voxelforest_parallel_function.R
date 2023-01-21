@@ -54,9 +54,9 @@
 #' @import parallel
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
+make_voxelforest_parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
                                          vxl.per.sqm=4, stems=F, ground=T,
                                          aggregation.func="max", keep=NA,
                                          run.parallel=F, frac.cores=0.5, res=100){
@@ -67,8 +67,8 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
   if(is.data.table(trees.dt) == T){
 
     # Define make.voxelforest.dt function
-    make.voxelforest.dt2 <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
-                                     stems=F, ground=T, aggregation.func="max", keep=NA){
+    make_voxelforest2 <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
+                                  stems=F, ground=T, aggregation.func="max", keep=NA){
 
       # Package requirements
       require(data.table, lib.loc=lib.path)
@@ -133,13 +133,13 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
 
             # Depending on the crown shape subset only voxels that fall into the crown
             if(my.CS == 1){
-              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.cylinder(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_cylinder(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
             } else if(my.CS == 2){
-              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.spheroid(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_spheroid(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
             } else if(my.CS == 3){
-              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.cone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_cone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
             } else if(my.CS == 4){
-              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.icecone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+              sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_icecone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
             }
 
             # Collect results
@@ -209,13 +209,13 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
     }
 
     # Calculate spatial index numbers
-    trees.dt[, Parallelization_SpatID := calc.spatial.index(X, Y, res=res, minx=minx, maxx=maxx, miny=miny)]
+    trees.dt[, Parallelization_SpatID := calc_spatial_index(X, Y, res=res, minx=minx, maxx=maxx, miny=miny)]
     # Split the data based on spatial index numbers
     trees.list <- split(trees.dt, f=trees.dt$Parallelization_SpatID)
     # Standard lapply solution without parallelization
     if(run.parallel == F){
       # Make a voxelforest from each list element with lapply without ground
-      vxf.list <- lapply(X=trees.list, FUN=make.voxelforest.dt2,
+      vxf.list <- lapply(X=trees.list, FUN=make_voxelforest2,
                          vxl.per.sqm=vxl.per.sqm, stems=stems, ground=F,
                          aggregation.func=aggregation.func, keep=keep)
       # Parallelized solution with parLapply
@@ -233,7 +233,7 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
       # parLapply requires that inside the make.voxelforest.dt function it is checked
       # that trees.dt is really a data.table with is.data.table(), otherwise it will
       # return an error.
-      vxf.list <- parLapply(mycl, X=trees.list, fun=make.voxelforest.dt2,
+      vxf.list <- parLapply(mycl, X=trees.list, fun=make_voxelforest2,
                             vxl.per.sqm=vxl.per.sqm, stems=stems, ground=F,
                             aggregation.func=aggregation.func, keep=keep)
       stopCluster(mycl)
@@ -242,9 +242,9 @@ make.voxelforest.dt.parallel <- function(trees.dt, minx=0, maxx, miny=0, maxy,
     vxf.dt <- rbindlist(vxf.list)
     # Add the ground for the whole area by running make.voxelforest.dt with an empty trees.dt
     empty.trees.dt <- subset(trees.dt, H == -pi)
-    ground.dt <- make.voxelforest.dt2(empty.trees.dt, minx=minx, maxx=maxx, miny=miny, maxy=maxy,
-                                      vxl.per.sqm=vxl.per.sqm, stems=F, ground=T,
-                                      aggregation.func=aggregation.func, keep=NA)
+    ground.dt <- make_voxelforest2(empty.trees.dt, minx=minx, maxx=maxx, miny=miny, maxy=maxy,
+                                   vxl.per.sqm=vxl.per.sqm, stems=F, ground=T,
+                                   aggregation.func=aggregation.func, keep=NA)
     # Bind tree and ground voxels together and fill the missing data columns
     # (from keep argument) for the ground with NA
     vxf.dt <- rbind(vxf.dt, ground.dt, fill=T)

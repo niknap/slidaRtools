@@ -30,8 +30,9 @@
 #' @keywords Gaussian density weighting 2D bell curve normal distribution
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-calc.gaussian.function.2D <- function(Xpt, Ypt, amp=1, Xctr=0, Yctr=0, sd=1){
+calc_gaussian_function_2D <- function(Xpt, Ypt, amp=1, Xctr=0, Yctr=0, sd=1){
   dist <- ((Xpt-Xctr)^2+(Ypt-Yctr)^2)^0.5
   output <- amp*exp(-(dist)^2/(2*sd^2))
   return(output)

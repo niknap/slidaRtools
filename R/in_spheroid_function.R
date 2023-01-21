@@ -17,23 +17,28 @@
 
 
 
-#' Check if point lies within a circle
+#' Check if point lies within a spheroid
 #'
 #' Function that checks for each X-Y-coordinate pair, whether the point lies in a
-#' circle of a given center and radius. Works with single numbers or matrices of
+#' spheroid of a given center, radius and height. Works with single numbers or matrices of
 #' X- and Y-coordinates as input.
 #' @param Xcor X-coordinate of the point
 #' @param Ycor Y-coordinate of the point
-#' @param Xctr X-coordinate of the circle center
-#' @param Yctr Y-coordinate of the circle center
-#' @param radius ...of the circle
+#' @param Zcor Z-coordinate of the point
+#' @param Xctr X-coordinate of the center
+#' @param Yctr Y-coordinate of the center
+#' @param Zctr Z-coordinate of the center
+#' @param radius ...of the equator plain of the spheroid
+#' @param height ...of the vertical axis of the spheroid
 #' @return boolean or matrix of booleans
-#' @keywords in circle overlap overlay
+#' @keywords in spheroid shape
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-in.circle <- function(Xcor, Ycor, Xctr, Yctr, radius){
-  result <- ifelse((Xcor - Xctr)^2 + (Ycor - Yctr)^2 <= radius^2, T, F)
+in_spheroid <- function(Xcor, Ycor, Zcor, Xctr, Yctr, Zctr, radius, height){
+  result <- ifelse((Xcor - Xctr)^2 / (radius^2) +
+                  (Ycor - Yctr)^2 / (radius^2) +
+                  (Zcor - Zctr)^2 / ((height / 2)^2) - 1 <= 0, 1, 0)
   return(result)
 }
-

@@ -26,7 +26,7 @@
 #' @keywords matrix raster conversion byrow transposition coordinate origin
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
 rowmx2ras <- function(mx){
   #require(raster)

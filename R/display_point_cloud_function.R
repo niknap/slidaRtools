@@ -29,9 +29,9 @@
 #' @import data.table
 #' @export
 #' @keywords 3D plot display point cloud graphics visualization lidar
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-display.point.cloud.dt <- function(xyz.dt, col.palette=NA, col.var="Z", col.lim=NA, size=1){
+display_point_cloud <- function(xyz.dt, col.palette=NA, col.var="Z", col.lim=NA, size=1){
   # Make sure input is data.table
   xyz.dt <- data.table(xyz.dt)
   # If no custom color palette is provided, create and apply a blue to red heat color palette

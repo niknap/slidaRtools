@@ -36,9 +36,9 @@
 #' vfp.vec <- vertical.foliage.profile(profile=prof.vec, h.bin=1, GR.threshold=1, k=0.5)
 #' plot(names(prof.vec) ~ prof.vec, type="l", xlab="Lidar returns", ylab="Height [m]")
 #' plot(names(vfp.vec) ~ vfp.vec, type="l", xlab="LAD [m2/m3]", ylab="Height [m]")
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-vertical.foliage.profile <- function(profile, h.bin=1, GR.threshold=5, k=0.5){
+vertical_foliage_profile <- function(profile, h.bin=1, GR.threshold=5, k=0.5){
   # Calculate P(hi), the relative cumulative Lidar profile or gap fraction
   # profile, which is 1 at canopy top and approaches the relative share of
   # ground returns in all returns at the bottom

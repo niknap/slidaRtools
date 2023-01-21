@@ -36,19 +36,19 @@
 #' @keywords periodic boundaries border edge effects closed wrapped world tree crowns point cloud voxelforest large footprint circle plot
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-periodic.boundaries.for.circular.plot <- function(vxf.dt, Xctr, Yctr, radius, clip=T){
+periodic_boundaries_for_circular_plot <- function(vxf.dt, Xctr, Yctr, radius, clip=T){
 
   # Make sure to use data.table format
   require(data.table)
   vxf.dt <- data.table(vxf.dt)
 
   # Subset ground voxels inside the circle
-  gr.dt <- subset(vxf.dt, Z == 0 & in.circle(X, Y, Xctr, Yctr, radius))
+  gr.dt <- subset(vxf.dt, Z == 0 & in_circle(X, Y, Xctr, Yctr, radius))
 
   # Subset only trees with stems inside the circle
-  vxf.dt <- subset(vxf.dt, in.circle(Xstem, Ystem, Xctr, Yctr, radius))
+  vxf.dt <- subset(vxf.dt, in_circle(Xstem, Ystem, Xctr, Yctr, radius))
 
   # Duplicate the voxelforest
   vxf.dt2 <- copy(vxf.dt)
@@ -88,7 +88,7 @@ periodic.boundaries.for.circular.plot <- function(vxf.dt, Xctr, Yctr, radius, cl
 
   # Clip with circular footprint
   if(clip == T){
-    vxf.dt3 <- subset(vxf.dt3, in.circle(X, Y, Xctr, Yctr, radius))
+    vxf.dt3 <- subset(vxf.dt3, in_circle(X, Y, Xctr, Yctr, radius))
   }
 
   # Return the result

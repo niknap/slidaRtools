@@ -44,9 +44,9 @@
 #' @keywords profile 2D plot display point cloud graphics visualization lidar
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-display.profile <- function(prof.vec, line.col="black", fill.col=NA, add=F, maxx=NA, maxy=NA,
+display_profile <- function(prof.vec, line.col="black", fill.col=NA, add=F, maxx=NA, maxy=NA,
                             alpha.line=1, alpha.fill=0.5, lwd=2, lty=1, GR.mark=NA,
                             GR.mark.cex=1, GR.mark.lwd=2, GR.mark.col=NA, alpha.GR.mark=1,
                             xlab=bquote("Count of Lidar returns [ha"^ -1 ~ "]"),

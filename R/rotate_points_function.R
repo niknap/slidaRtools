@@ -30,9 +30,9 @@
 #' @keywords point cloud rotation angle transform
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-rotate.points <- function(cor.df, rot.angle, rot.axis="Z", center=c(0, 0, 0)){
+rotate_points <- function(cor.df, rot.angle, rot.axis="Z", center=c(0, 0, 0)){
   cor.df <- data.frame(cor.df)
   # Convert degrees to radians
   rot.angle <- -rot.angle*(0.5*pi)/90

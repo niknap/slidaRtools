@@ -36,13 +36,13 @@
 #' @keywords voxel forest plot lidar large footprint pulse waveform profile gaussian simulation
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.5*12.5, VG.ratio=2.5, weight.var=NA){
+make_large_footprint_lidar_pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, diameter=25, binwidth=1, k=0.2, sd=0.5*12.5, VG.ratio=2.5, weight.var=NA){
   require(data.table)
   xyz.dt <- data.table(xyz.dt)
   # Cut out the voxels that fall into the pulse cylinder
-  sub.dt <- xyz.dt[in.circle(xyz.dt$X, xyz.dt$Y, Xctr, Yctr, diameter/2) == T]
+  sub.dt <- xyz.dt[in_circle(xyz.dt$X, xyz.dt$Y, Xctr, Yctr, diameter/2) == T]
   # Calculate intensity for each point. The absolute value is irrelevant, because the final profile will be normalized to a sum of 1.
   if(input=="vxf"){
     # Calculate relative intensity for each voxel using Beer-Lambert light extinction based on LAI.
@@ -58,13 +58,13 @@ make.large.footprint.lidar.pulse <- function(xyz.dt, input="vxf", Xctr, Yctr, di
   # Adjust the intensity at ground level, considering the vegetation vs. ground refectance ratio
   sub.dt[Z == 0, I := I/VG.ratio]
   # Weight voxels in the pulse center higher than at the margins using a 2D Gaussian weighting function.
-  sub.dt$weight <- calc.gaussian.function.2D(Xpt=sub.dt$X, Ypt=sub.dt$Y, amp=1, Xctr=Xctr, Yctr=Yctr, sd=sd)
+  sub.dt$weight <- calc_gaussian_function_2D(Xpt=sub.dt$X, Ypt=sub.dt$Y, amp=1, Xctr=Xctr, Yctr=Yctr, sd=sd)
   # Multiply each voxel's intensity with its weight
   sub.dt[, I := I*weight]
   # Aggregate the XYZ-table into a vertical profile vector
   sub.dt <- subset(sub.dt, select=c("X", "Y", "Z", "I"))
   sub.df <- data.frame(sub.dt)
-  prof <- make.profile.from.XYZ.value(sub.df, binwidth, stat="sum")
+  prof <- make_profile_from_XYZ_value(sub.df, binwidth, stat="sum")
   # Normalize the profile
   prof <- prof/sum(prof)
   return(prof)

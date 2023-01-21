@@ -17,19 +17,24 @@
 
 
 
-#' Calculate Gaussian function value for a point
+#' Check if point lies within a circle
 #'
-#' Function that returns for each given point the value of a Gaussian function.
-#' @param pt Coordinate of the point
-#' @param amp Amplitude of the peak of the Gaussian curve
-#' @param ctr Coordinate of the center point
-#' @param sd Standard deviation of the Gaussian curve (for a curve that contains >99\% of the area between -1 and 1 use sd=0.4)
-#' @return Vector of function values for each input point
-#' @keywords Gaussian density weighting bell curve normal distribution
+#' Function that checks for each X-Y-coordinate pair, whether the point lies in a
+#' circle of a given center and radius. Works with single numbers or matrices of
+#' X- and Y-coordinates as input.
+#' @param Xcor X-coordinate of the point
+#' @param Ycor Y-coordinate of the point
+#' @param Xctr X-coordinate of the circle center
+#' @param Yctr Y-coordinate of the circle center
+#' @param radius ...of the circle
+#' @return boolean or matrix of booleans
+#' @keywords in circle overlap overlay
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-calc.gaussian.function <- function(pt, amp=1, ctr=0, sd=1){
-  output <- amp*exp(-(pt-ctr)^2/(2*sd^2))
-  return(output)
+in_circle <- function(Xcor, Ycor, Xctr, Yctr, radius){
+  result <- ifelse((Xcor - Xctr)^2 + (Ycor - Yctr)^2 <= radius^2, T, F)
+  return(result)
 }
+

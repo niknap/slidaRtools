@@ -36,8 +36,9 @@
 #' @keywords in ice cone shape spheroid tree crown
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-in.icecone <- function(Xcor, Ycor, Zcor, Xctr, Yctr, Zctr, radius, height){
+in_icecone <- function(Xcor, Ycor, Zcor, Xctr, Yctr, Zctr, radius, height){
   # Calculate the radius at each height for the cone that forms the lower half
   RadiusAtHeight <- (radius / (0.5*height)) * (Zcor - (Zctr-0.5*height))
   # Check if the point is in lower half and in cone

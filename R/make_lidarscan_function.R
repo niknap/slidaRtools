@@ -24,9 +24,8 @@
 #' to get a Lidar return from a voxel.
 #' @param vxf.dt data.table containing the voxel forest (derived from make.voxelforest.dt function)
 #' @param P0.AGR Initial return probability for above ground voxels
-#' @param k.AGR Extinction coefficient for above ground voxels
 #' @param P0.GR Initial return probability for ground voxels
-#' @param k.GR Extinction coefficient for ground voxels
+#' @param k Light extinction coefficient
 #' @param LAD.prefactor Boolean to specify whether leaf area density
 #' (LAD) of a voxel should be multiplied with P0 to get final return
 #' probability or not
@@ -40,8 +39,9 @@
 #' @import data.table
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-make.lidarscan.dt <- function(vxf.dt, P0.AGR=0.2, k.AGR=0.2, P0.GR=0.2, k.GR=0.2, LAD.prefactor=F, prob.out=F){
+make_lidarscan <- function(vxf.dt, P0.AGR=0.2, P0.GR=0.2, k=0.2, LAD.prefactor=F, prob.out=F){
 
   # Convert voxelforest to data.table
   voxelforest.dt <- data.table(vxf.dt)
@@ -55,11 +55,11 @@ make.lidarscan.dt <- function(vxf.dt, P0.AGR=0.2, k.AGR=0.2, P0.GR=0.2, k.GR=0.2
 
   # Calculate Lidar return probability index for each above ground
   # voxel based on LAI using Beer-Lambert's light extinction model
-  voxelforest.dt[Z > 0, ReturnProbability := P0.AGR*exp(-k.AGR*LAI)]
+  voxelforest.dt[Z > 0, ReturnProbability := P0.AGR*exp(-k*LAI)]
 
   # Calculate Lidar return probability index for each ground
   # voxel based on LAI using Beer-Lambert's light extinction model
-  voxelforest.dt[Z == 0, ReturnProbability := P0.GR*exp(-k.GR*LAI)]
+  voxelforest.dt[Z == 0, ReturnProbability := P0.GR*exp(-k*LAI)]
 
   # If the LAD prefactor option is selected multiply the return probability in
   # each voxel with the leaf area density of the voxel to account for the fact

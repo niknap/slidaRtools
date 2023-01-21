@@ -51,10 +51,10 @@
 #' @import data.table
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-make.voxelforest.dt <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
-                                stems=F, ground=T, aggregation.func="max", keep=NA){
+make_voxelforest <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
+                             stems=F, ground=T, aggregation.func="max", keep=NA){
 
   #   # Settings for testing
   # minx <- 100
@@ -126,13 +126,13 @@ make.voxelforest.dt <- function(trees.dt, minx, maxx, miny, maxy, vxl.per.sqm=4,
 
         # Depending on the crown shape subset only voxels that fall into the crown
         if(my.CS == 1){
-          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.cylinder(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_cylinder(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
         } else if(my.CS == 2){
-          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.spheroid(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_spheroid(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
         } else if(my.CS == 3){
-          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.cone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_cone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zbase=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
         } else if(my.CS == 4){
-          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in.icecone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
+          sub.crown.voxel.dt <- subset(sub.trees.voxel.dt, in_icecone(Xcor=sub.trees.voxel.dt$Xbox, Ycor=sub.trees.voxel.dt$Ybox, Zcor=sub.trees.voxel.dt$Zbox, Xctr=sub.trees.voxel.dt$Xres, Yctr=sub.trees.voxel.dt$Yres, Zctr=(sub.trees.voxel.dt$H-sub.trees.voxel.dt$CL/2), radius=sub.trees.voxel.dt$CRres, height=sub.trees.voxel.dt$CL) == 1)
         }
 
         # Collect results

@@ -28,9 +28,9 @@
 #' @keywords profile lidar point cloud CHM xyz
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-make.profile.from.XYZ.value <- function(XYZ.value.table, binwidth=1, stat="sum"){
+make_profile_from_XYZ_value <- function(XYZ.value.table, binwidth=1, stat="sum"){
   require(plyr)
   XYZ.value.table <- data.frame(XYZ.value.table)
   names(XYZ.value.table) <- c("X", "Y", "Z", "value")

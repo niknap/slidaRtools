@@ -32,10 +32,10 @@
 #' @return Thinned point cloud in same format as input
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@thuenen.de
+#' @author Nikolai Knapp
 
 
-thin.point.cloud.xyz <- function(pc, res=1, n=4, dim="xy"){
+thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
   require(data.table)
 
   # # Debug

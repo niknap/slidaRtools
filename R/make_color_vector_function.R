@@ -31,9 +31,9 @@
 #' @keywords colors palette values coding ramp scale
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-make.color.vector <- function(vec, palette=NA, min=NA, max=NA, step=1, alpha=1){
+make_color_vector <- function(vec, palette=NA, min=NA, max=NA, step=1, alpha=1){
   require(grDevices)
   # If no custom color palette is provided, create and apply a blue to red heat color palette
   suppressWarnings(

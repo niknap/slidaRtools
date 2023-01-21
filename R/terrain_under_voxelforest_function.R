@@ -25,9 +25,9 @@
 #' @return Data.table containing a voxel forest with terrain
 #' @keywords voxel forest plot lidar terrain elevation DTM DSM DEM CHM point cloud trees vertical altitude
 #' @export
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-terrain.under.voxelforest <- function(vxf.dt, terrain.dt){
+terrain_under_voxelforest <- function(vxf.dt, terrain.dt){
 
   # Convert to data.tables
   require(data.table)

@@ -29,8 +29,9 @@
 #' @keywords lidar point cloud xyz profile weighting normalization density correction
 #' @export
 #' @examples in progress
+#' @author Nikolai Knapp
 
-weighted.returns.point.cloud <- function(pc, cell.size=1){
+weighted_returns_point_cloud <- function(pc, cell.size=1){
   # Convert input to a data.frame
   pc <- as.data.frame(pc)
   # Make the sampling grid matrix
@@ -41,7 +42,7 @@ weighted.returns.point.cloud <- function(pc, cell.size=1){
   maxx.gridcell <- ceiling((maxx-minx)/cell.size)
   maxy.gridcell <- ceiling((maxy-miny)/cell.size)
   # Calculate the cell number for each point
-  pc$CellNo <- calc.spatial.index(xcor=pc$X, ycor=pc$Y, res=cell.size,
+  pc$CellNo <- calc_spatial_index(xcor=pc$X, ycor=pc$Y, res=cell.size,
                                   minx=minx, miny=miny, maxx=maxx, maxy=maxy)
   # Count how many returns fall into each cell
   returns.per.cell.count <- table(pc$CellNo)

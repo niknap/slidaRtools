@@ -35,9 +35,9 @@
 #' @keywords raster rasterization point cloud XYZ CHM
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-raster.from.point.cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func="max"){
+raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func="max"){
   require(plyr)
   require(reshape2)
   require(raster)

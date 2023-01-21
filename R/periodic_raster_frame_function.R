@@ -28,9 +28,9 @@
 #' @keywords raster frame buffer margin periodic boundaries edge effect moving window filter texture
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-periodic.raster.frame <- function(ras, w=10){
+periodic_raster_frame <- function(ras, w=10){
   #require(raster)
 
   # Memorize extent and resolution of input raster

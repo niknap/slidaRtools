@@ -31,9 +31,9 @@
 #' @keywords periodic boundaries border edge effects closed wrapped world tree crowns point cloud
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
-periodic.boundaries.dt <- function(xyz.dt, minx, maxx, miny, maxy){
+periodic_boundaries <- function(xyz.dt, minx, maxx, miny, maxy){
   require(data.table)
   xyz.dt <- data.table(xyz.dt)
   # Calculate the extent in both horizontal dimensions
