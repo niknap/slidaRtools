@@ -19,7 +19,7 @@ Convert a raster to a XYZ-data.table with Z being the pixel values
 in progress
 }
 \author{
-Nikolai Knapp, nikolai.knapp@ufz.de
+Nikolai Knapp
 }
 \keyword{XYZ}
 \keyword{conversion}

@@ -3,7 +3,7 @@ Type: Package
 Title: Tools for lidar simulation and lidar processing
 Version: 0.2.0
 Author: Nikolai Knapp, scientist at Thünen Institute for Forest Ecosystems 
-(TIWO), Germany, previously at Helmholtz-Centre for Environmental Research (UFZ) 
+    (TIWO), Germany, previously at Helmholtz-Centre for Environmental Research (UFZ) 
 Maintainer: Nikolai Knapp <nikolai.knapp@thuenen.de>
 Description: This package provides a couple of useful functions to simulate and
     process lidar data of forests. Lidar simulation means to create discrete 

@@ -21,7 +21,7 @@ from top to bottom (bycol)
 in progress
 }
 \author{
-Nikolai Knapp, nikolai.knapp@ufz.de
+Nikolai Knapp
 }
 \keyword{bycol}
 \keyword{conversion}

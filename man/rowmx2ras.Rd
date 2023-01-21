@@ -20,7 +20,7 @@ left to right (byrow) to a raster with origin in lower left corner
 in progress
 }
 \author{
-Nikolai Knapp, nikolai.knapp@ufz.de
+Nikolai Knapp
 }
 \keyword{byrow}
 \keyword{conversion}
