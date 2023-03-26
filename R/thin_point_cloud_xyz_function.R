@@ -55,19 +55,10 @@ thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
     pc <- data.table(pc)
   }
 
-  # Define function which rounds to arbitrary precision
-  # (f can be round, ceiling or floor)
-  my_round_any <- function(x, prec, f=round){
-    x <- x / prec
-    x <- f(x)
-    x <- x * prec
-    return(x)
-  }
-
   # Round coordinates to res meters precision
-  pc[, X_round := my_round_any(X, prec=res, f=floor)]
-  pc[, Y_round := my_round_any(Y, prec=res, f=floor)]
-  pc[, Z_round := my_round_any(Z, prec=res, f=floor)]
+  pc[, X_round := floor(X/res)*res]
+  pc[, Y_round := floor(Y/res)*res]
+  pc[, Z_round := floor(Z/res)*res]
 
   # # Make a list of all dimensions which are chosen for the thinning
   # column.list <-

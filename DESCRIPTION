@@ -21,15 +21,11 @@ Depends:
 Imports:
     abind,
     grDevices,
-    maptools,
-    plyr,
-    randtoolbox,
-    RANN,
+    parallel,
     raster,
     Rcpp,
     reshape2,
     rgdal,
     rgl,
-    sp,
-    VGAM
+    sp
 RoxygenNote: 7.1.2

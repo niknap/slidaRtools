@@ -40,9 +40,9 @@ voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   XYZ.dt <- data.table(XYZ.df)
   XYZ.dt <- subset(XYZ.dt, select=c("X", "Y", "Z", value.var))
   # Round the coordinates to full voxel units
-  XYZ.dt$X <- round_any(XYZ.dt$X, res.xy)
-  XYZ.dt$Y <- round_any(XYZ.dt$Y, res.xy)
-  XYZ.dt$Z <- round_any(XYZ.dt$Z, res.z)
+  XYZ.dt$X <- round(XYZ.dt$X/res.xy)*res.xy
+  XYZ.dt$Y <- round(XYZ.dt$Y/res.xy)*res.xy
+  XYZ.dt$Z <- round(XYZ.dt$Z/res.z)*res.z
   # Cast the data.table with the new coordinates to an array using the
   # desired function as aggregation function
   if(func == "max"){
@@ -66,7 +66,7 @@ voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   # If a global max. height is desired, that exceeds the max. height of the point cloud
   # add additional empty voxel layers on top of the array
   if(!is.na(global.h.max)){
-    h.max <- round_any(global.h.max, res.z, f=ceiling)
+    h.max <- ceiling(global.h.max/res.z)*res.z
   } else {
     h.max <- max(XYZ.dt$Z)
   }
@@ -81,7 +81,7 @@ voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   array.3D <- array(data=0, dim=c(length(namesx), length(namesy), length(namesz)),
                        dimnames=list(namesx, namesy, namesz))
   # Write the values from the casted array to the total array
-  afill(array.3D) <- cast.array.3D
+  abind::afill(array.3D) <- cast.array.3D
   return(array.3D)
 }
 

@@ -31,12 +31,11 @@
 #' @author Nikolai Knapp
 
 make_profile_from_XYZ_value <- function(XYZ.value.table, binwidth=1, stat="sum"){
-  require(plyr)
   XYZ.value.table <- data.frame(XYZ.value.table)
   names(XYZ.value.table) <- c("X", "Y", "Z", "value")
   max.Z <- max(XYZ.value.table$Z)
   min.Z <- min(XYZ.value.table$Z)
-  XYZ.value.table$Z <- round_any(XYZ.value.table$Z, binwidth, floor)
+  XYZ.value.table$Z <- floor(XYZ.value.table$Z/binwidth)*binwidth
   XYZ.value.table <- data.table(XYZ.value.table)
   if(stat == "sum"){
     val.summary <- XYZ.value.table[, .(Stat=sum(value, na.rm=T)), by='Z']
@@ -51,7 +50,7 @@ make_profile_from_XYZ_value <- function(XYZ.value.table, binwidth=1, stat="sum")
   } else if(stat == "count"){
     val.summary <- XYZ.value.table[, .(Stat=.N), by='Z']
   }
-  profile.bins <- seq(round_any(min.Z, binwidth, floor), round_any(max.Z, binwidth, ceiling), binwidth)
+  profile.bins <- seq(floor(min.Z/binwidth)*binwidth, ceiling(max.Z/binwidth)*binwidth, binwidth)
   profile.vals <- rep(0, times=length(profile.bins))
   profile.vals[match(val.summary$Z, profile.bins)] <- val.summary$Stat
   names(profile.vals) <- profile.bins

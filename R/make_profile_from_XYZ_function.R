@@ -30,16 +30,15 @@
 #' @author Nikolai Knapp
 
 make_profile_from_XYZ <- function(XYZ.table, binwidth=1){
-  require(plyr)
   require(data.table)
   XYZ.table <- data.frame(XYZ.table)
   names(XYZ.table) <- c("X", "Y", "Z")
   max.Z <- max(XYZ.table$Z, na.rm=T)
   min.Z <- min(XYZ.table$Z, na.rm=T)
-  XYZ.table$Z <- round_any(XYZ.table$Z, binwidth, floor)
+  XYZ.table$Z <- floor(XYZ.table$Z/binwidth)*binwidth
   XYZ.table <- data.table(XYZ.table)
   Z.summary <- XYZ.table[,.N, by='Z']
-  profile.bins <- seq(round_any(min.Z, binwidth, floor), round_any(max.Z, binwidth, ceiling), binwidth)
+  profile.bins <- seq(floor(min.Z/binwidth)*binwidth, ceiling(max.Z/binwidth)*binwidth, binwidth)
   profile.vals <- rep(0, times=length(profile.bins))
   profile.vals[match(Z.summary$Z, profile.bins)] <- Z.summary$N
   names(profile.vals) <- profile.bins

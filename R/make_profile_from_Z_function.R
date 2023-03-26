@@ -30,12 +30,11 @@
 #' @author Nikolai Knapp
 
 make_profile_from_Z <- function(Z.vec, binwidth=1){
-  require(plyr)
   max.Z <- max(Z.vec, na.rm=T)
   min.Z <- min(Z.vec, na.rm=T)
-  Z.vec <- round_any(Z.vec, binwidth, floor)
+  Z.vec <- floor(Z.vec/binwidth)*binwidth
   Z.summary <- table(Z.vec)
-  profile.bins <- seq(round_any(min.Z, binwidth, floor), round_any(max.Z, binwidth, ceiling), binwidth)
+  profile.bins <- seq(floor(min.Z/binwidth)*binwidth, ceiling(max.Z/binwidth)*binwidth, binwidth)
   profile.vals <- rep(0, times=length(profile.bins))
   profile.vals[match(names(Z.summary), profile.bins)] <- Z.summary
   names(profile.vals) <- profile.bins

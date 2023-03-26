@@ -49,17 +49,17 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
     y.vec <- pc[, ycor]
     z.vec <- pc[, var]
     # Derive the data's extent
-    minx <- round_any(min(x.vec), accuracy=res, f=floor)
-    miny <- round_any(min(y.vec), accuracy=res, f=floor)
-    maxx <- round_any(max(x.vec), accuracy=res, f=ceiling)
-    maxy <- round_any(max(y.vec), accuracy=res, f=ceiling)
+    minx <- floor(min(x.vec)/res)*res
+    miny <- floor(min(y.vec)/res)*res
+    maxx <- ceiling(max(x.vec)/res)*res
+    maxy <- ceiling(max(y.vec)/res)*res
     # Remove X- and Y-values that fall directly on the respective maxima
     new.x.vec <- x.vec[x.vec != maxx & y.vec != maxy]
     new.y.vec <- y.vec[x.vec != maxx & y.vec != maxy]
     z.vec <- z.vec[x.vec != maxx & y.vec != maxy]
     # Calculate the new X- and Y-coordinate
-    new.x.vec <- round_any(new.x.vec, accuracy=res, f=floor) / res
-    new.y.vec <- round_any(new.y.vec, accuracy=res, f=floor) / res
+    new.x.vec <- floor(new.x.vec/res)
+    new.y.vec <- floor(new.y.vec/res)
     df <- data.frame(cbind(X=new.x.vec, Y=new.y.vec, Z=z.vec))
     # Function that returns the mode (most common value) in the data
     mode.func <- function(vec, na.rm=T){
