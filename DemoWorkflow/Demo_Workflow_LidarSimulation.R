@@ -22,6 +22,7 @@
 # Load required packages
 .libPaths()
 require(slidaRtools)
+require(viridis)
 
 # Read and inspect example data
 require(repmis)
@@ -31,7 +32,10 @@ head(inv.dt)
 nrow(lid.dt)
 nrow(inv.dt)
 
-# Check stem map
+# Check the real lidar point cloud
+display_point_cloud(lid.dt)
+
+# Check stem map of the inventory data
 plot(inv.dt$Y ~ inv.dt$X)
 
 # Prepare the tree attributes which are needed for the simulation
@@ -82,6 +86,25 @@ head(sim.lid.dt)
 # Aggregate to vertical profile
 sim.lid.prof.vec <- make_profile_from_XYZ(sim.lid.dt)
 display_profile(sim.lid.prof.vec, line.col="blue")
+
+
+#######################
+# Canopy height model
+#######################
+
+# Rasterize to create a canopy height model of the simulated point cloud
+sim.chm.ras <- raster_from_point_cloud(sim.lid.dt, res=1)
+sim.chm.ras <- crop(sim.chm.ras, c(0, 100, 0, 100))
+
+# Fill gaps (NA pixels) with value zero
+sim.chm.ras <- gapfill(sim.chm.ras, fill.value=0)
+plot(sim.chm.ras, col=viridis(50), zlim=c(0, 40))
+
+# Rasterize to create a canopy height model of the real lidar point cloud
+# for comparison
+real.chm.ras <- raster_from_point_cloud(lid.dt, res=1)
+real.chm.ras <- gapfill(real.chm.ras, fill.value=0)
+plot(real.chm.ras, col=viridis(50), zlim=c(0, 40))
 
 
 ###############################
