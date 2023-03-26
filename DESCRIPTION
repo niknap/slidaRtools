@@ -11,8 +11,7 @@ Description: This package provides a couple of useful functions to simulate and
     using their positions, crown properties and a Beer-Lambert light 
     extinction approach. Lidar data processing means operations like point 
     cloud thinning, conversions between XYZ-tables, rasters, matrices and
-    arrays, outlier filtering, spatial indexing, vertical profile delineation, 
-    etc.
+    arrays, spatial indexing, vertical profile delineation, etc.
 License: GPL-3
 LazyData: TRUE
 Depends:
