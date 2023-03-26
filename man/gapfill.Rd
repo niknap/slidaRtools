@@ -30,7 +30,7 @@ Function that fills gaps in a raster.
 in progress
 }
 \author{
-Nikolai Knapp, nikolai.knapp@ufz.de
+Nikolai Knapp
 }
 \keyword{CHM}
 \keyword{NA}

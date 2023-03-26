@@ -21,7 +21,7 @@ from left to right (byrow)
 in progress
 }
 \author{
-Nikolai Knapp, nikolai.knapp@ufz.de
+Nikolai Knapp
 }
 \keyword{byrow}
 \keyword{conversion}

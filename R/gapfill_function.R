@@ -28,7 +28,7 @@
 #' @keywords raster rasterization gap hole NA fill replace CHM window
 #' @export
 #' @examples in progress
-#' @author Nikolai Knapp, nikolai.knapp@ufz.de
+#' @author Nikolai Knapp
 
 
 gapfill <- function(in.ras, fill.window.size=5, fill.window.type="circle", fill.value="mean"){

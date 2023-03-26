@@ -1,17 +1,18 @@
 Package: slidaRtools
 Type: Package
 Title: Tools for lidar simulation and lidar processing
-Version: 0.1.0
-Author: Nikolai Knapp, Helmholtz-Zentrum für Umweltforschung GmbH - UFZ 
-Maintainer: Nikolai Knapp <nikolai.knapp@ufz.de>
+Version: 0.2.0
+Author: Nikolai Knapp, scientist at Thünen Institute for Forest Ecosystems 
+    (TIWO), Germany, previously at Helmholtz-Centre for Environmental Research (UFZ) 
+Maintainer: Nikolai Knapp <nikolai.knapp@thuenen.de>
 Description: This package provides a couple of useful functions to simulate and
-    process lidar data of forests. Lidar simulation means to create discrete lidar
-    point clouds for a given tree list using their positions, crown properties and
-    a Beer-Lambert light extinction approach. Lidar data processing means operations
-    like point cloud thinning, conversions between XYZ-tables, rasters, matrices and
-    arrays, outlier filtering, spatial indexing, vertical profile delineation, etc.
-    Additionally, the package contains a set of functions to calculate common field-
-    inventory-based and lidar-based metrics for forest stands.
+    process lidar data of forests. Lidar simulation means to create discrete 
+    lidar point clouds or large footprint waveforms for a given tree list 
+    using their positions, crown properties and a Beer-Lambert light 
+    extinction approach. Lidar data processing means operations like point 
+    cloud thinning, conversions between XYZ-tables, rasters, matrices and
+    arrays, outlier filtering, spatial indexing, vertical profile delineation, 
+    etc.
 License: GPL-3
 LazyData: TRUE
 Depends:
@@ -20,15 +21,11 @@ Depends:
 Imports:
     abind,
     grDevices,
-    maptools,
-    plyr,
-    randtoolbox,
-    RANN,
+    parallel,
     raster,
     Rcpp,
     reshape2,
     rgdal,
     rgl,
-    sp,
-    VGAM
+    sp
 RoxygenNote: 7.1.2
