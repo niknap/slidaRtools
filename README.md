@@ -5,8 +5,8 @@ Tools for lidar simulation and lidar processing
 The slidaRtools package provides a couple of useful functions to simulate and process lidar data of forests. 
 Lidar simulation means to create discrete lidar point clouds or large footprint waveforms for a given tree list 
 using their positions, crown properties and a Beer-Lambert light extinction approach. Lidar data processing means 
-operations like point cloud thinning, conversions between XYZ-tables, rasters, matrices and arrays, outlier 
-filtering, spatial indexing, vertical profile delineation, etc.
+operations like point cloud thinning, conversions between XYZ-tables, rasters, matrices and arrays, spatial indexing, 
+vertical profile delineation, etc.
 
 ## Demo
 A demo script can be found inside the folder DemoWorkflow, along with a small example dataset.
