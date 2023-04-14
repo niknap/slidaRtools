@@ -87,6 +87,8 @@ thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
   # total number of points in the unit is less than the desired
   # number, then all points should be sampled
   pc[, N_samples := pmin(N_points, n)]
+  # Check which values for N_samples occur in the data
+  n.samples.vec <- sort(unique(pc$N_samples))
 
   # Sample N_samples random points from each unit
   # Solution from: https://stackoverflow.com/questions/41042750/how-do-you-sample-data-within-each-group-in-a-data-table-fastest-way-possible
@@ -98,9 +100,14 @@ thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
   # Error in sample.int(x, size, replace, prob) : invalid 'size' argument
   # Bug fix by looping over all possible N_samples and putting it in as a
   # contant in every iteration
+  # Under Windows a similar error can occur sometimes for unknown reasons.
+  # This was fixed by looping only over N_samples values which actually
+  # occur in the data (n.samples.vec)
   sampled.rows.vec <- c()
-  for(i in 1:n){
-    my.sampled.rows.vec <- pc[N_samples == i, .I[sample(x=.N, size=i)], by=ID_unit][[2]]
+  for(my.n.samples in n.samples.vec){
+    # my.n.samples <- n.samples.vec[1]
+    # pc[N_samples == my.n.samples, ]
+    my.sampled.rows.vec <- pc[N_samples == my.n.samples, .I[sample(x=.N, size=my.n.samples)], by=ID_unit][[2]]
     sampled.rows.vec <- c(sampled.rows.vec, my.sampled.rows.vec)
   }
 
