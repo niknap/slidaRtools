@@ -55,6 +55,13 @@ thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
     pc <- data.table(pc)
   }
 
+  # Make an explicit copy of the input pc using the same name. This is
+  # necessary, otherwise manipulations done inside this function
+  # (e.g. adding columns) will be applied to the input table passed as pc
+  # argument
+  # https://stackoverflow.com/questions/44661961/dont-want-original-data-table-to-be-modified-when-passed-to-a-function
+  pc <- copy(pc)
+
   # Round coordinates to res meters precision
   pc[, X_round := floor(X/res)*res]
   pc[, Y_round := floor(Y/res)*res]
@@ -90,40 +97,29 @@ thin_point_cloud_xyz <- function(pc, res=1, n=4, dim="xy"){
   # Check which values for N_samples occur in the data
   n.samples.vec <- sort(unique(pc$N_samples))
 
-  # Sample N_samples random points from each unit
+  # Sample N_samples random points from each unit which has at least n points
   # Solution from: https://stackoverflow.com/questions/41042750/how-do-you-sample-data-within-each-group-in-a-data-table-fastest-way-possible
-  # pc.out <- pc[pc[, .I[sample(.N, N_samples)], by=ID_unit][[2]],]
-  # sampled.rows.vec <- pc[, .I[sample(.N, N_samples)], by=ID_unit][[2]]
-  # For some unknown reason the solution with the N_samples column only works
-  # Windows, but under Linux with the same R and data.table version it throws
-  # this error:
-  # Error in sample.int(x, size, replace, prob) : invalid 'size' argument
-  # Bug fix by looping over all possible N_samples and putting it in as a
-  # contant in every iteration
-  # Under Windows a similar error can occur sometimes for unknown reasons.
-  # This was fixed by looping only over N_samples values which actually
-  # occur in the data (n.samples.vec)
-  sampled.rows.vec <- c()
-  for(my.n.samples in n.samples.vec){
-    # my.n.samples <- n.samples.vec[1]
-    # pc[N_samples == my.n.samples, ]
-    my.sampled.rows.vec <- pc[N_samples == my.n.samples, .I[sample(x=.N, size=my.n.samples)], by=ID_unit][[2]]
-    sampled.rows.vec <- c(sampled.rows.vec, my.sampled.rows.vec)
-  }
+  my.sampled.rows.vec <- pc[N_samples == n, .I[sample(x=.N, size=n)], by=ID_unit][[2]]
+  # Take all points, which are in units with less than n points
+  all.lower.density.rows.vec <- which(pc$N_points < n)
+  # Alternative data.table syntax (is not faster)
+  # all.lower.density.rows.vec <- pc[, .I[N_points < n]]
+  # Combine the indices of all rows for subsetting
+  subset.rows.vec <- sort(c(my.sampled.rows.vec, all.lower.density.rows.vec))
 
   # Prepare the output based on the input's format
   if(input.class == "LAS"){
 
     # Subset only the sampled points
     pc.las@data$PointRowID <- 1:nrow(pc.las@data)
-    pc.out <- filter_poi(pc.las, PointRowID %in% sampled.rows.vec)
+    pc.out <- filter_poi(pc.las, PointRowID %in% subset.rows.vec)
     suppressMessages(pc.out <- remove_lasattribute(pc.out, "PointRowID"))
     # pc.out.las <- LAS(pc.out)
 
   }else{
 
-    # Subset only the sampled points
-    pc.out <- pc[sort(sampled.rows.vec) ,]
+    # Subset the sampled points
+    pc.out <- pc[subset.rows.vec, ]
     # Remove the extra columns created during thinning process
     pc.out <- subset(pc.out, select=-c(X_round, Y_round, Z_round,
                                        ID_unit, N_points, N_samples))
