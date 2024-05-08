@@ -24,7 +24,6 @@ Imports:
     raster,
     Rcpp,
     reshape2,
-    rgdal,
     rgl,
     sp
 RoxygenNote: 7.1.2
