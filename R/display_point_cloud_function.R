@@ -35,7 +35,7 @@ display_point_cloud <- function(xyz.dt, col.palette=NA, col.var="Z", col.lim=NA,
   # Make sure input is data.table
   xyz.dt <- data.table(xyz.dt)
   # If no custom color palette is provided, create and apply a blue to red heat color palette
-  if(is.na(col.palette)){
+  if(is.na(col.palette[1])){
     col.palette <- colorRampPalette(c("darkblue", "blue", "cyan", "green", "yellow", "orange", "red", "darkred"), space = "Lab")(50)
   }
   # If no custom color limits are provided, stretch them between min and max of the Z values
