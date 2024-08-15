@@ -23,7 +23,6 @@ Imports:
     parallel,
     raster,
     Rcpp,
-    reshape2,
     rgl,
     sp
 RoxygenNote: 7.1.2
