@@ -29,7 +29,6 @@
 
 ras2xyzdt <- function(ras){
   require(raster)
-  require(reshape2)
   require(data.table)
   # Extract the resolution of the raster in X- and Y-direction
   resx <- res(ras)[1]
@@ -43,14 +42,14 @@ ras2xyzdt <- function(ras){
   # coordinate conventions of rasters and matrices
   mx <- t(mx[nrow(mx):1, ])
   # Melt the matrix to a data.frame and assign column names
-  xyz <- data.frame(melt(mx))
+  xyz <- data.table::melt(mx)
   names(xyz) <- c("X", "Y", "Z")
   # Multiply the matrix coordinates with the raster resolution
   # and add the values of the lower left raster corner
   # to get the original coordinate values back
   xyz$X <- xyz$X * resx + minx
   xyz$Y <- xyz$Y * resy + miny
-  return(data.table(xyz))
+  return(xyz)
 }
 
 

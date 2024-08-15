@@ -38,16 +38,15 @@
 #' @author Nikolai Knapp
 
 raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func="max"){
-  require(plyr)
-  require(reshape2)
+  require(data.table)
   require(raster)
   # Error handling
   possibleError <- tryCatch({
     # Data conversion
-    pc <- as.data.frame(pc)
-    x.vec <- pc[, xcor]
-    y.vec <- pc[, ycor]
-    z.vec <- pc[, var]
+    pc <- data.table(pc)
+    x.vec <- pc[, get(xcor)]
+    y.vec <- pc[, get(ycor)]
+    z.vec <- pc[, get(var)]
     # Derive the data's extent
     minx <- floor(min(x.vec)/res)*res
     miny <- floor(min(y.vec)/res)*res
@@ -60,7 +59,7 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
     # Calculate the new X- and Y-coordinate
     new.x.vec <- floor(new.x.vec/res)
     new.y.vec <- floor(new.y.vec/res)
-    df <- data.frame(cbind(X=new.x.vec, Y=new.y.vec, Z=z.vec))
+    new.pc.dt <- data.table(X=new.x.vec, Y=new.y.vec, Z=z.vec)
     # Function that returns the mode (most common value) in the data
     mode.func <- function(vec, na.rm=T){
       #counts <- ifelse(na.rm == T, table(vec), table(vec, useNA="ifany"))
@@ -71,25 +70,33 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
       random.element <- sample(n.maxima, size=1)
       return(values[random.element])
     }
-    # Cast the dataframe with the new coordinates to a matrix using the
-    # desired function as aggregation function
+    # Aggregate the data per XY cell according to the specified aggregation
+    # function
     if(func == "max"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=max))
+      agg.dt <- new.pc.dt[, .(agg.val = max(Z, na.rm=T)), keyby=c("X", "Y")]
     } else if(func == "min"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=min))
+      agg.dt <- new.pc.dt[, .(agg.val = min(Z, na.rm=T)), keyby=c("X", "Y")]
     } else if(func == "count"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=length))
+      agg.dt <- new.pc.dt[, .(agg.val = .N), keyby=c("X", "Y")]
     } else if(func == "mean"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=mean))
+      agg.dt <- new.pc.dt[, .(agg.val = mean(Z, na.rm=T)), keyby=c("X", "Y")]
     } else if(func == "sum"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=sum))
+      agg.dt <- new.pc.dt[, .(agg.val = sum(Z, na.rm=T)), keyby=c("X", "Y")]
     } else if(func == "mode"){
-      suppressWarnings(mx <- acast(data=df, X~Y, value.var="Z", fun.aggregate=mode.func, summarize, fill=0))
+      agg.dt <- new.pc.dt[, .(agg.val = mode.func(Z, na.rm=T)), keyby=c("X", "Y")]
     }
-    # Replace -Inf by NA
-    mx[mx[] == -Inf] <- NA
+    # Expand a complete grid of all cells
+    complete.x.vec <- seq(min(new.x.vec), max(new.x.vec), res)
+    complete.y.vec <- seq(min(new.y.vec), max(new.y.vec), res)
+    grid.dt <- CJ(X=complete.x.vec, Y=complete.y.vec)
+    # Merge all aggregated values to the complete grid
+    grid.dt <- merge(grid.dt, agg.dt, all.x=T, by=c("X", "Y"))
+    # Convert to matrix
+    mx <- matrix(grid.dt$agg.val, nrow=length(complete.x.vec), ncol=length(complete.y.vec), byrow=T)
+    # # Replace -Inf by NA
+    # mx[mx[] == -Inf] <- NA
     # Convert the "by-column-matrix" to raster (requires coordinate transposition)
-    mx <- t(mx[, ncol(mx):1])
+    # mx <- t(mx[, ncol(mx):1])
     ras <- raster(mx, xmx=ncol(mx), ymx=nrow(mx))
     # Adjust the extent of the raster (otherwise pixels are shifted by 0.5 times pixel size)
     ras <- setExtent(ras, ext=extent(c(minx, maxx, miny, maxy)))

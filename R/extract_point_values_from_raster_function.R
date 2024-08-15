@@ -46,7 +46,7 @@ extract_point_values_from_raster <- function(pc, ras){
   # Melt the raster to a dataframe
   ras.mx <- raster::as.matrix(ras)
   ras.mx <- t(ras.mx[nrow(ras.mx):1, ])
-  ras.df <- melt(ras.mx)
+  ras.df <- data.table::melt(ras.mx)
   # Calculate the cell number for each raster cell
   ras.df$CellNo <- calc_spatial_index((cell.size*ras.df[,1]-cell.size), (cell.size*ras.df[,2]-cell.size), cell.size)
   # Match the point cloud points with the raster cells based on cell number and
