@@ -35,8 +35,6 @@
 
 voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.z=5, value.var="Z", func="count"){
   require(data.table)
-  require(reshape2)
-  require(abind)
   XYZ.dt <- data.table(XYZ.df)
   XYZ.dt <- subset(XYZ.dt, select=c("X", "Y", "Z", value.var))
   # Round the coordinates to full voxel units
@@ -46,23 +44,22 @@ voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   # Cast the data.table with the new coordinates to an array using the
   # desired function as aggregation function
   if(func == "max"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=max, na.rm=T))
+    agg.dt <- XYZ.dt[, .(agg.val = max(Z, na.rm=T)), keyby=c("X", "Y", "Z")]
   } else if(func == "min"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=min, na.rm=T))
+    agg.dt <- XYZ.dt[, .(agg.val = min(Z, na.rm=T)), keyby=c("X", "Y", "Z")]
   } else if(func == "count"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=length))
+    agg.dt <- XYZ.dt[, .(agg.val = .N), keyby=c("X", "Y", "Z")]
   } else if(func == "mean"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=mean, na.rm=T))
+    agg.dt <- XYZ.dt[, .(agg.val = mean(Z, na.rm=T)), keyby=c("X", "Y", "Z")]
   } else if(func == "sum"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=sum, na.rm=T))
+    agg.dt <- XYZ.dt[, .(agg.val = sum(Z, na.rm=T)), keyby=c("X", "Y", "Z")]
   } else if(func == "bool"){
-    suppressWarnings(cast.array.3D <- acast(data=XYZ.dt, X~Y~Z, value.var=value.var, fun.aggregate=length))
-    cast.array.3D[cast.array.3D > 0] <- 1
-    cast.array.3D[cast.array.3D <= 0] <- 0
+    agg.dt <- XYZ.dt[, .(agg.val = .N), keyby=c("X", "Y", "Z")]
+    agg.dt[, agg.val := 1]
   }
   # Replace -Inf, Inf, NaN and NA by 0
-  cast.array.3D[is.infinite(cast.array.3D)] <- 0
-  cast.array.3D[is.na(cast.array.3D)] <- 0
+  agg.dt[is.infinite(agg.val), agg.val := 0]
+  agg.dt[is.na(agg.val), agg.val := 0]
   # If a global max. height is desired, that exceeds the max. height of the point cloud
   # add additional empty voxel layers on top of the array
   if(!is.na(global.h.max)){
@@ -70,18 +67,26 @@ voxel_array_from_point_cloud <- function(XYZ.df, global.h.max=NA, res.xy=5, res.
   } else {
     h.max <- max(XYZ.dt$Z)
   }
+  # Expand a complete grid of all cells
+  complete.x.vec <- seq(min(XYZ.dt$X), max(XYZ.dt$X), res.xy)
+  complete.y.vec <- seq(min(XYZ.dt$Y), max(XYZ.dt$Y), res.xy)
+  complete.z.vec <- seq(min(XYZ.dt$Z), h.max, res.z)
+  grid.dt <- CJ(X=complete.x.vec, Y=complete.y.vec, Z=complete.z.vec)
+  # Merge all aggregated values to the complete grid
+  grid.dt <- merge(grid.dt, agg.dt, all.x=T, by=c("X", "Y", "Z"))
+  # Sort by coordinate columns in the order that is necessary to later write
+  # the data into an array with X varying faster than Y varying faster than Z
+  setorderv(grid.dt, cols=c("Z", "Y", "X"))
   # Create empty array that covers the whole space (the casted array
   # only contains those slices for which there was data in the input XYZ-table)
-  namesx <- seq(min(XYZ.dt$X), max(XYZ.dt$X), res.xy)
-  namesy <- seq(min(XYZ.dt$Y), max(XYZ.dt$Y), res.xy)
-  namesz <- seq(min(XYZ.dt$Z), h.max, res.z)
   extx <- (max(XYZ.dt$X)-min(XYZ.dt$X))/res.xy+1
   exty <- (max(XYZ.dt$Y)-min(XYZ.dt$Y))/res.xy+1
   extz <- (max(XYZ.dt$Z)-min(XYZ.dt$Z))/res.z+1
-  array.3D <- array(data=0, dim=c(length(namesx), length(namesy), length(namesz)),
-                       dimnames=list(namesx, namesy, namesz))
-  # Write the values from the casted array to the total array
-  abind::afill(array.3D) <- cast.array.3D
+  array.3D <- array(data=grid.dt$agg.val,
+                    dim=c(length(complete.x.vec), length(complete.y.vec), length(complete.z.vec)),
+                    dimnames=list(complete.x.vec, complete.y.vec, complete.z.vec))
+  # Replace NA by 0
+  array.3D[is.na(array.3D)] <- 0
   return(array.3D)
 }
 
