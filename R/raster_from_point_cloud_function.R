@@ -56,7 +56,7 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
     new.x.vec <- x.vec[x.vec != maxx & y.vec != maxy]
     new.y.vec <- y.vec[x.vec != maxx & y.vec != maxy]
     z.vec <- z.vec[x.vec != maxx & y.vec != maxy]
-    # Calculate the new X- and Y-coordinate
+    # Calculate the new X- and Y-coordinates
     new.x.vec <- floor(new.x.vec/res)
     new.y.vec <- floor(new.y.vec/res)
     new.pc.dt <- data.table(X=new.x.vec, Y=new.y.vec, Z=z.vec)
@@ -86,8 +86,8 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
       agg.dt <- new.pc.dt[, .(agg.val = mode.func(Z, na.rm=T)), keyby=c("X", "Y")]
     }
     # Expand a complete grid of all cells
-    complete.x.vec <- seq(min(new.x.vec), max(new.x.vec), res)
-    complete.y.vec <- seq(min(new.y.vec), max(new.y.vec), res)
+    complete.x.vec <- min(new.x.vec):max(new.x.vec)
+    complete.y.vec <- min(new.y.vec):max(new.y.vec)
     grid.dt <- CJ(X=complete.x.vec, Y=complete.y.vec)
     # Merge all aggregated values to the complete grid
     grid.dt <- merge(grid.dt, agg.dt, all.x=T, by=c("X", "Y"))
@@ -95,8 +95,8 @@ raster_from_point_cloud <- function(pc, xcor="X", ycor="Y", var="Z", res=1, func
     mx <- matrix(grid.dt$agg.val, nrow=length(complete.x.vec), ncol=length(complete.y.vec), byrow=T)
     # # Replace -Inf by NA
     # mx[mx[] == -Inf] <- NA
-    # Convert the "by-column-matrix" to raster (requires coordinate transposition)
-    # mx <- t(mx[, ncol(mx):1])
+    # Convert the matrix to raster (requires coordinate transposition)
+    mx <- t(mx[, ncol(mx):1])
     ras <- raster(mx, xmx=ncol(mx), ymx=nrow(mx))
     # Adjust the extent of the raster (otherwise pixels are shifted by 0.5 times pixel size)
     ras <- setExtent(ras, ext=extent(c(minx, maxx, miny, maxy)))
